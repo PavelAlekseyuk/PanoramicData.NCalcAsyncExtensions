@@ -5,7 +5,7 @@ namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
 internal static class Retrieve
 {
-	internal static void Evaluate(FunctionArgs functionArgs, Dictionary<string, object?> storageDictionary)
+	internal static async Task EvaluateAsync(FunctionArgs functionArgs, Dictionary<string, object?> storageDictionary)
 	{
 		string key;
 		try

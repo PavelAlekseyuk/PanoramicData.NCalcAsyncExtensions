@@ -4,7 +4,7 @@ namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
 internal static class Sort
 {
-	internal static void Evaluate(FunctionArgs functionArgs)
+	internal static async Task EvaluateAsync(FunctionArgs functionArgs)
 	{
 		var parameterIndex = 0;
 		var list = functionArgs.Parameters[parameterIndex++].Evaluate() as IEnumerable<object?>

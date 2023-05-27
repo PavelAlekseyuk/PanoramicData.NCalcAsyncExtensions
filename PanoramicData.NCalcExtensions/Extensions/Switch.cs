@@ -4,7 +4,7 @@ namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
 internal static class Switch
 {
-	internal static void Evaluate(FunctionArgs functionArgs)
+	internal static async Task EvaluateAsync(FunctionArgs functionArgs)
 	{
 		if (functionArgs.Parameters.Length < 3)
 		{

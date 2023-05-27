@@ -1,12 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using NCalcAsync;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
 internal static class Distinct
 {
-	internal static void Evaluate(FunctionArgs functionArgs)
+	internal static async Task EvaluateAsync(FunctionArgs functionArgs)
 	{
-		var enumerable = functionArgs.Parameters[0].Evaluate() as IEnumerable<object?>
+		var enumerable = await functionArgs.Parameters[0].EvaluateAsync() as IEnumerable<object?>
 			?? throw new FormatException($"First {ExtensionFunction.Distinct} parameter must be an IEnumerable.");
 
 		functionArgs.Result = enumerable

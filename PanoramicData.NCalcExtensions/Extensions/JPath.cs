@@ -4,7 +4,7 @@ namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
 internal static class JPath
 {
-	internal static void Evaluate(FunctionArgs functionArgs)
+	internal static async Task EvaluateAsync(FunctionArgs functionArgs)
 	{
 		JObject jObject;
 		string jPathExpression;

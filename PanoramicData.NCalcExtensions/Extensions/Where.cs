@@ -4,7 +4,7 @@ namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
 internal static class Where
 {
-	internal static void Evaluate(FunctionArgs functionArgs)
+	internal static async Task EvaluateAsync(FunctionArgs functionArgs)
 	{
 		var list = functionArgs.Parameters[0].Evaluate() as IEnumerable<object?>
 			?? throw new FormatException($"First {ExtensionFunction.Where} parameter must be an IEnumerable.");

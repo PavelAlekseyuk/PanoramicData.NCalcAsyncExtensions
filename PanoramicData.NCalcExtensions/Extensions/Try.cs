@@ -2,7 +2,7 @@
 
 internal static class Try
 {
-	internal static void Evaluate(FunctionArgs functionArgs)
+	internal static async Task EvaluateAsync(FunctionArgs functionArgs)
 	{
 		ExtendedExpression.CheckParameterCount(nameof(Try), functionArgs, 1, 2);
 

@@ -4,7 +4,7 @@ namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
 internal static class Parse
 {
-	internal static void Evaluate(FunctionArgs functionArgs)
+	internal static async Task EvaluateAsync(FunctionArgs functionArgs)
 	{
 		if (functionArgs.Parameters.Length < 2)
 		{

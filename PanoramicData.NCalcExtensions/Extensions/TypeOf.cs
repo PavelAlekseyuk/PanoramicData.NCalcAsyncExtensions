@@ -2,7 +2,7 @@
 
 internal static class TypeOf
 {
-	internal static void Evaluate(FunctionArgs functionArgs)
+	internal static async Task EvaluateAsync(FunctionArgs functionArgs)
 	{
 		var parameter1 = functionArgs.Parameters.Length == 1
 			? functionArgs.Parameters[0].Evaluate()

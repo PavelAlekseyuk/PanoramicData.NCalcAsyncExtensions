@@ -1,10 +1,12 @@
-﻿using PanoramicData.NCalcAsyncExtensions.Exceptions;
+﻿using NCalcAsync;
+using PanoramicData.NCalcAsyncExtensions.Exceptions;
+using System.Threading.Tasks;
 
 namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
 internal static class IsNaN
 {
-	internal static void Evaluate(FunctionArgs functionArgs)
+	internal static async Task EvaluateAsync(FunctionArgs functionArgs)
 	{
 		if (functionArgs.Parameters.Length != 1)
 		{
@@ -13,9 +15,8 @@ internal static class IsNaN
 
 		try
 		{
-			var outputObject = functionArgs.Parameters[0].Evaluate();
+			var outputObject = await functionArgs.Parameters[0].EvaluateAsync();
 			functionArgs.Result = outputObject is not double || double.IsNaN((double)outputObject);
-			return;
 		}
 		catch (NCalcExtensionsException)
 		{

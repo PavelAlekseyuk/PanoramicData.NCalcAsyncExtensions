@@ -1,8 +1,11 @@
-﻿namespace PanoramicData.NCalcAsyncExtensions.Extensions;
+﻿using NCalcAsync;
+using System.Threading.Tasks;
+
+namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
 internal static class Format
 {
-	internal static void Evaluate(FunctionArgs functionArgs)
+	internal static async Task EvaluateAsync(FunctionArgs functionArgs)
 	{
 		const int min = 2;
 		const int max = 3;
@@ -11,8 +14,8 @@ internal static class Format
 			throw new ArgumentException($"{ExtensionFunction.Format} function - expected between {min} and {max} arguments");
 		}
 
-		var inputObject = functionArgs.Parameters[0].Evaluate();
-		if (functionArgs.Parameters[1].Evaluate() is not string formatFormat)
+		var inputObject = await functionArgs.Parameters[0].EvaluateAsync();
+		if (await functionArgs.Parameters[1].EvaluateAsync() is not string formatFormat)
 		{
 			throw new ArgumentException($"{ExtensionFunction.Format} function - expected second argument to be a format string");
 		}
@@ -22,7 +25,7 @@ internal static class Format
 			(int inputInt, 2) => inputInt.ToString(formatFormat, CultureInfo.InvariantCulture),
 			(double inputDouble, 2) => inputDouble.ToString(formatFormat, CultureInfo.InvariantCulture),
 			(DateTime dateTime, 2) => dateTime.BetterToString(formatFormat),
-			(DateTime dateTime, 3) => dateTime.ToDateTimeInTargetTimeZone(formatFormat, functionArgs.Parameters[2].Evaluate() as string ?? throw new ArgumentException($"{ExtensionFunction.Format} function - expected third argument to be a TimeZone string")),
+			(DateTime dateTime, 3) => dateTime.ToDateTimeInTargetTimeZone(formatFormat, await functionArgs.Parameters[2].EvaluateAsync() as string ?? throw new ArgumentException($"{ExtensionFunction.Format} function - expected third argument to be a TimeZone string")),
 			(string inputString, 2) => GetThing(inputString, formatFormat),
 			_ => throw new NotSupportedException($"Unsupported input type {inputObject.GetType().Name} or incorrect number of parameters.")
 		};

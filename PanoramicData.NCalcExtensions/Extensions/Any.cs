@@ -6,7 +6,7 @@ namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
 internal static class Any
 {
-	internal static async Task Evaluate(FunctionArgs functionArgs)
+	internal static async Task EvaluateAsync(FunctionArgs functionArgs)
 	{
 		var list = await functionArgs.Parameters[0].EvaluateAsync() as IEnumerable<object?>
 			?? throw new FormatException($"First {ExtensionFunction.Any} parameter must be an IEnumerable.");

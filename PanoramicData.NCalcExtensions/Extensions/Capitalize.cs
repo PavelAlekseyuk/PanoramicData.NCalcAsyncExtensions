@@ -1,16 +1,18 @@
-﻿using PanoramicData.NCalcAsyncExtensions.Exceptions;
+﻿using NCalcAsync;
+using PanoramicData.NCalcAsyncExtensions.Exceptions;
 using PanoramicData.NCalcAsyncExtensions.Helpers;
+using System.Threading.Tasks;
 
 namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
 internal static class Capitalize
 {
-	internal static void Evaluate(FunctionArgs functionArgs)
+	internal static async Task EvaluateAsync(FunctionArgs functionArgs)
 	{
 		string param1;
 		try
 		{
-			param1 = (string)functionArgs.Parameters[0].Evaluate();
+			param1 = (string)await functionArgs.Parameters[0].EvaluateAsync();
 		}
 		catch (NCalcExtensionsException)
 		{

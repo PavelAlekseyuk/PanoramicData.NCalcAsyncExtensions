@@ -1,10 +1,12 @@
-﻿using PanoramicData.NCalcAsyncExtensions.Exceptions;
+﻿using NCalcAsync;
+using PanoramicData.NCalcAsyncExtensions.Exceptions;
+using System.Threading.Tasks;
 
 namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
 internal static class If
 {
-	internal static void Evaluate(FunctionArgs functionArgs)
+	internal static async Task EvaluateAsync(FunctionArgs functionArgs)
 	{
 		bool boolParam1;
 		if (functionArgs.Parameters.Length != 3)
@@ -14,7 +16,7 @@ internal static class If
 
 		try
 		{
-			boolParam1 = (bool)functionArgs.Parameters[0].Evaluate();
+			boolParam1 = (bool)await functionArgs.Parameters[0].EvaluateAsync();
 		}
 		catch (NCalcExtensionsException)
 		{
@@ -29,7 +31,7 @@ internal static class If
 		{
 			try
 			{
-				functionArgs.Result = functionArgs.Parameters[1].Evaluate();
+				functionArgs.Result = await functionArgs.Parameters[1].EvaluateAsync();
 				return;
 			}
 			catch (NCalcExtensionsException)
@@ -44,7 +46,7 @@ internal static class If
 
 		try
 		{
-			functionArgs.Result = functionArgs.Parameters[2].Evaluate();
+			functionArgs.Result = await functionArgs.Parameters[2].EvaluateAsync();
 		}
 		catch (NCalcExtensionsException)
 		{

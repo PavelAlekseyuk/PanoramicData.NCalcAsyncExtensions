@@ -1,12 +1,15 @@
-﻿namespace PanoramicData.NCalcAsyncExtensions.Extensions;
+﻿using NCalcAsync;
+using System.Threading.Tasks;
+
+namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
 internal static class DateTimeAsEpochMs
 {
-	internal static void Evaluate(FunctionArgs functionArgs)
+	internal static async Task EvaluateAsync(FunctionArgs functionArgs)
 	{
 		var dateTimeOffset = DateTimeOffset.ParseExact(
-			functionArgs.Parameters[0].Evaluate() as string, // Input date as string
-			functionArgs.Parameters[1].Evaluate() as string,
+			await functionArgs.Parameters[0].EvaluateAsync() as string, // Input date as string
+			await functionArgs.Parameters[1].EvaluateAsync() as string,
 			CultureInfo.InvariantCulture.DateTimeFormat,
 			DateTimeStyles.AssumeUniversal);
 		functionArgs.Result = dateTimeOffset.ToUnixTimeMilliseconds();

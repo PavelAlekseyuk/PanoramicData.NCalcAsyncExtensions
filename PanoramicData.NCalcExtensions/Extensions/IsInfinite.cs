@@ -1,10 +1,12 @@
-﻿using PanoramicData.NCalcAsyncExtensions.Exceptions;
+﻿using NCalcAsync;
+using PanoramicData.NCalcAsyncExtensions.Exceptions;
+using System.Threading.Tasks;
 
 namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
 internal static class IsInfinite
 {
-	internal static void Evaluate(FunctionArgs functionArgs)
+	internal static async Task EvaluateAsync(FunctionArgs functionArgs)
 	{
 		if (functionArgs.Parameters.Length != 1)
 		{
@@ -13,12 +15,8 @@ internal static class IsInfinite
 
 		try
 		{
-			var outputObject = functionArgs.Parameters[0].Evaluate();
-			functionArgs.Result =
-				outputObject is double x && (
-					double.IsPositiveInfinity(x)
-					|| double.IsNegativeInfinity(x)
-				);
+			var outputObject = await functionArgs.Parameters[0].EvaluateAsync();
+			functionArgs.Result = outputObject is double x && (double.IsPositiveInfinity(x) || double.IsNegativeInfinity(x));
 		}
 		catch (NCalcExtensionsException)
 		{

@@ -1,13 +1,16 @@
-﻿namespace PanoramicData.NCalcAsyncExtensions.Extensions;
+﻿using NCalcAsync;
+using System.Threading.Tasks;
+
+namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
 internal static class DateTimeMethods
 {
-	internal static void Evaluate(FunctionArgs functionArgs)
+	internal static async Task EvaluateAsync(FunctionArgs functionArgs)
 	{
 		if (functionArgs.Parameters.Length > 0)
 		{
 			// Time Zone
-			if (functionArgs.Parameters[0].Evaluate() is not string timeZone)
+			if (await functionArgs.Parameters[0].EvaluateAsync() is not string timeZone)
 			{
 				throw new FormatException($"{ExtensionFunction.DateTime} function - The first argument should be a string, e.g. 'UTC'");
 			}
@@ -21,7 +24,7 @@ internal static class DateTimeMethods
 
 		// Format
 		var format = functionArgs.Parameters.Length > 1
-			? functionArgs.Parameters[1].Evaluate() as string
+			? await functionArgs.Parameters[1].EvaluateAsync() as string
 			: "yyyy-MM-dd HH:mm:ss";
 		// Format has been determined
 
@@ -29,7 +32,7 @@ internal static class DateTimeMethods
 		double daysToAdd = 0;
 		if (functionArgs.Parameters.Length > 2)
 		{
-			var daysToAddNullable = GetNullableDouble(functionArgs.Parameters[2]);
+			var daysToAddNullable = await GetNullableDoubleAsync(functionArgs.Parameters[2]);
 			if (!daysToAddNullable.HasValue)
 			{
 				throw new FormatException($"{ExtensionFunction.DateTime} function - Days to add must be a number.");
@@ -42,7 +45,7 @@ internal static class DateTimeMethods
 		double hoursToAdd = 0;
 		if (functionArgs.Parameters.Length > 3)
 		{
-			var hoursToAddNullable = GetNullableDouble(functionArgs.Parameters[3]);
+			var hoursToAddNullable = await GetNullableDoubleAsync(functionArgs.Parameters[3]);
 			if (!hoursToAddNullable.HasValue)
 			{
 				throw new FormatException($"{ExtensionFunction.DateTime} function - Hours to add must be a number.");
@@ -55,7 +58,7 @@ internal static class DateTimeMethods
 		double minutesToAdd = 0;
 		if (functionArgs.Parameters.Length > 4)
 		{
-			var minutesToAddNullable = GetNullableDouble(functionArgs.Parameters[4]);
+			var minutesToAddNullable = await GetNullableDoubleAsync(functionArgs.Parameters[4]);
 			if (!minutesToAddNullable.HasValue)
 			{
 				throw new FormatException($"{ExtensionFunction.DateTime} function - Minutes to add must be a number.");
@@ -68,7 +71,7 @@ internal static class DateTimeMethods
 		double secondsToAdd = 0;
 		if (functionArgs.Parameters.Length > 5)
 		{
-			var secondsToAddNullable = GetNullableDouble(functionArgs.Parameters[5]);
+			var secondsToAddNullable = await GetNullableDoubleAsync(functionArgs.Parameters[5]);
 			if (!secondsToAddNullable.HasValue)
 			{
 				throw new FormatException($"{ExtensionFunction.DateTime} function - Seconds to add must be a number.");
@@ -86,8 +89,8 @@ internal static class DateTimeMethods
 			.ToString(format, CultureInfo.InvariantCulture);
 	}
 
-	private static double? GetNullableDouble(Expression expression)
-		=> (expression.Evaluate()) switch
+	private static async Task<double?> GetNullableDoubleAsync(Expression expression)
+		=> (await expression.EvaluateAsync()) switch
 		{
 			double doubleResult => doubleResult,
 			int intResult => intResult,

@@ -2,7 +2,7 @@
 
 internal static class RegexIsMatch
 {
-	internal static void Evaluate(FunctionArgs functionArgs)
+	internal static async Task EvaluateAsync(FunctionArgs functionArgs)
 	{
 		var input = functionArgs.Parameters[0].Evaluate();
 		var regexExpression = functionArgs.Parameters[1].Evaluate();

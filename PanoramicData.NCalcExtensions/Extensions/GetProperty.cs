@@ -1,17 +1,19 @@
-﻿using PanoramicData.NCalcAsyncExtensions.Exceptions;
+﻿using NCalcAsync;
+using PanoramicData.NCalcAsyncExtensions.Exceptions;
+using System.Threading.Tasks;
 
 namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
 internal static class GetProperty
 {
-	internal static void Evaluate(FunctionArgs functionArgs)
+	internal static async Task EvaluateAsync(FunctionArgs functionArgs)
 	{
 		object value;
 		string property;
 		try
 		{
-			value = functionArgs.Parameters[0].Evaluate();
-			property = (string)functionArgs.Parameters[1].Evaluate();
+			value = await functionArgs.Parameters[0].EvaluateAsync();
+			property = (string)await functionArgs.Parameters[1].EvaluateAsync();
 		}
 		catch (NCalcExtensionsException)
 		{

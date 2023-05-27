@@ -5,7 +5,7 @@ namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
 internal static class ItemAtIndex
 {
-	internal static void Evaluate(FunctionArgs functionArgs)
+	internal static async Task EvaluateAsync(FunctionArgs functionArgs)
 	{
 		IList input;
 		int index;

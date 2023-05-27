@@ -1,10 +1,12 @@
-﻿using PanoramicData.NCalcAsyncExtensions.Exceptions;
+﻿using NCalcAsync;
+using PanoramicData.NCalcAsyncExtensions.Exceptions;
+using System.Threading.Tasks;
 
 namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
 internal static class In
 {
-	internal static void Evaluate(FunctionArgs functionArgs)
+	internal static async Task EvaluateAsync(FunctionArgs functionArgs)
 	{
 		if (functionArgs.Parameters.Length < 2)
 		{
@@ -13,8 +15,9 @@ internal static class In
 
 		try
 		{
-			var item = functionArgs.Parameters[0].Evaluate();
-			var list = functionArgs.Parameters.Skip(1).Select(p => p.Evaluate()).ToList();
+			var item = await functionArgs.Parameters[0].EvaluateAsync();
+			var tasks = functionArgs.Parameters.Skip(1).Select(p => p.EvaluateAsync());
+			var list = await Task.WhenAll(tasks);
 			functionArgs.Result = list.Contains(item);
 		}
 		catch (NCalcExtensionsException)

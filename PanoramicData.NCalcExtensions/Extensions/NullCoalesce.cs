@@ -2,7 +2,7 @@
 
 internal static class NullCoalesce
 {
-	internal static void Evaluate(FunctionArgs functionArgs)
+	internal static async Task EvaluateAsync(FunctionArgs functionArgs)
 	{
 		foreach (var parameter in functionArgs.Parameters)
 		{

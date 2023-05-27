@@ -5,7 +5,7 @@ namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
 internal static class ListOf
 {
-	internal static void Evaluate(FunctionArgs functionArgs)
+	internal static async Task EvaluateAsync(FunctionArgs functionArgs)
 	{
 		var typeString = functionArgs.Parameters[0].Evaluate() as string
 			?? throw new FormatException($"First {ExtensionFunction.ListOf} parameter must be a string.");

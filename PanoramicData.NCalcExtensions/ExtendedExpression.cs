@@ -1,6 +1,7 @@
 ﻿using NCalcAsync;
 using PanoramicData.NCalcAsyncExtensions.Extensions;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace PanoramicData.NCalcAsyncExtensions;
 
@@ -12,7 +13,7 @@ public class ExtendedExpression : Expression
 	public ExtendedExpression(string expression) : base(expression)
 	{
 		Parameters[StorageDictionaryParameterName] = _storageDictionary;
-		EvaluateFunction += Extend;
+		EvaluateFunctionAsync += ExtendAsync;
 		CacheEnabled = false;
 		if (Parameters.ContainsKey("null"))
 		{
@@ -51,7 +52,7 @@ public class ExtendedExpression : Expression
 		}
 	}
 
-	internal static void Extend(string functionName, FunctionArgs functionArgs)
+	internal static async Task ExtendAsync(string functionName, FunctionArgs functionArgs)
 	{
 		if (functionArgs == null)
 		{
@@ -61,204 +62,204 @@ public class ExtendedExpression : Expression
 		switch (functionName)
 		{
 			case ExtensionFunction.All:
-				All.Evaluate(functionArgs);
+				await All.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.Any:
-				Any.Evaluate(functionArgs);
+				await Any.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.CanEvaluate:
-				CanEvaluate.Evaluate(functionArgs);
+				await CanEvaluate.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.Capitalise:
 			case ExtensionFunction.Capitalize:
-				Capitalize.Evaluate(functionArgs);
+				await Capitalize.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.Cast:
-				Cast.Evaluate(functionArgs);
+				await Cast.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.ChangeTimeZone:
-				ChangeTimeZone.Evaluate(functionArgs);
+				await ChangeTimeZone.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.Concat:
-				Concat.Evaluate(functionArgs);
+				await Concat.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.Contains:
-				Contains.Evaluate(functionArgs);
+				await Contains.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.Convert:
-				ConvertFunction.Evaluate(functionArgs);
+				await ConvertFunction.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.Count:
-				Count.Evaluate(functionArgs);
+				await Count.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.DateTime:
-				DateTimeMethods.Evaluate(functionArgs);
+				await DateTimeMethods.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.DateTimeAsEpochMs:
-				DateTimeAsEpochMs.Evaluate(functionArgs);
+				await DateTimeAsEpochMs.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.Distinct:
-				Distinct.Evaluate(functionArgs);
+				await Distinct.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.EndsWith:
-				EndsWith.Evaluate(functionArgs);
+				await EndsWith.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.Format:
-				Format.Evaluate(functionArgs);
+				await Format.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.GetProperty:
-				GetProperty.Evaluate(functionArgs);
+				await GetProperty.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.Humanise:
 			case ExtensionFunction.Humanize:
-				Humanize.Evaluate(functionArgs);
+				await Humanize.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.In:
-				In.Evaluate(functionArgs);
+				await In.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.IndexOf:
-				IndexOf.Evaluate(functionArgs);
+				await IndexOf.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.If:
-				If.Evaluate(functionArgs);
+				await If.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.IsInfinite:
-				IsInfinite.Evaluate(functionArgs);
+				await IsInfinite.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.IsNaN:
-				IsNaN.Evaluate(functionArgs);
+				await IsNaN.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.IsNull:
-				IsNull.Evaluate(functionArgs);
+				await IsNull.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.IsNullOrEmpty:
-				IsNullOrEmpty.Evaluate(functionArgs);
+				await IsNullOrEmpty.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.IsNullOrWhiteSpace:
-				IsNullOrWhiteSpace.Evaluate(functionArgs);
+				await IsNullOrWhiteSpace.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.IsSet:
-				IsSet.Evaluate(functionArgs);
+				await IsSet.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.ItemAtIndex:
-				ItemAtIndex.Evaluate(functionArgs);
+				await ItemAtIndex.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.Join:
-				Join.Evaluate(functionArgs);
+				await Join.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.JPath:
-				JPath.Evaluate(functionArgs);
+				await JPath.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.LastIndexOf:
-				LastIndexOf.Evaluate(functionArgs);
+				await LastIndexOf.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.Length:
-				Length.Evaluate(functionArgs);
+				await Length.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.List:
-				List.Evaluate(functionArgs);
+				await List.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.ListOf:
-				ListOf.Evaluate(functionArgs);
+				await ListOf.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.Max:
-				Max.Evaluate(functionArgs);
+				await Max.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.Min:
-				Min.Evaluate(functionArgs);
+				await Min.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.NullCoalesce:
-				NullCoalesce.Evaluate(functionArgs);
+				await NullCoalesce.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.NewJObject:
-				NewJObject.Evaluate(functionArgs);
+				await NewJObject.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.OrderBy:
-				OrderBy.Evaluate(functionArgs);
+				await OrderBy.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.PadLeft:
-				PadLeft.Evaluate(functionArgs);
+				await PadLeft.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.Parse:
-				Parse.Evaluate(functionArgs);
+				await Parse.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.ParseInt:
-				ParseInt.Evaluate(functionArgs);
+				await ParseInt.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.RegexGroup:
-				RegexGroup.Evaluate(functionArgs);
+				await RegexGroup.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.RegexIsMatch:
-				RegexIsMatch.Evaluate(functionArgs);
+				await RegexIsMatch.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.Replace:
-				Replace.Evaluate(functionArgs);
+				await Replace.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.Retrieve:
-				Retrieve.Evaluate(functionArgs, _storageDictionary);
+				await Retrieve.EvaluateAsync(functionArgs, _storageDictionary);
 				return;
 			case ExtensionFunction.Select:
-				Select.Evaluate(functionArgs);
+				await Select.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.SelectDistinct:
-				SelectDistinct.Evaluate(functionArgs);
+				await SelectDistinct.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.SetProperties:
-				SetProperties.Evaluate(functionArgs);
+				await SetProperties.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.Skip:
-				Skip.Evaluate(functionArgs);
+				await Skip.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.Sort:
-				Sort.Evaluate(functionArgs);
+				await Sort.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.Split:
-				Split.Evaluate(functionArgs);
+				await Split.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.StartsWith:
-				StartsWith.Evaluate(functionArgs);
+				await StartsWith.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.Store:
-				Store.Evaluate(functionArgs, _storageDictionary);
+				await Store.EvaluateAsync(functionArgs, _storageDictionary);
 				return;
 			case ExtensionFunction.Substring:
-				Substring.Evaluate(functionArgs);
+				await Substring.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.Sum:
-				Sum.Evaluate(functionArgs);
+				await Sum.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.Switch:
-				Switch.Evaluate(functionArgs);
+				await Switch.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.Take:
-				Take.Evaluate(functionArgs);
+				await Take.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.Throw:
-				throw Throw.Evaluate(functionArgs);
+				throw await Throw.EvaluateAsync(functionArgs);
 			case ExtensionFunction.TimeSpan:
 			case ExtensionFunction.TimeSpanCamel:
-				Extensions.TimeSpan.Evaluate(functionArgs);
+				await Extensions.TimeSpan.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.ToDateTime:
-				ToDateTime.Evaluate(functionArgs);
+				await ToDateTime.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.ToLower:
-				ToLower.Evaluate(functionArgs);
+				await ToLower.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.ToString:
-				Extensions.ToString.Evaluate(functionArgs);
+				await Extensions.ToString.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.ToUpper:
-				ToUpper.Evaluate(functionArgs);
+				await ToUpper.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.Try:
-				Try.Evaluate(functionArgs);
+				await Try.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.TypeOf:
-				TypeOf.Evaluate(functionArgs);
+				await TypeOf.EvaluateAsync(functionArgs);
 				return;
 			case ExtensionFunction.Where:
-				Where.Evaluate(functionArgs);
+				await Where.EvaluateAsync(functionArgs);
 				return;
 			default:
 				return;

@@ -6,7 +6,7 @@ namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
 internal static class Sum
 {
-	internal static async Task Evaluate(FunctionArgs functionArgs)
+	internal static async Task EvaluateAsync(FunctionArgs functionArgs)
 	{
 		var originalList = await functionArgs.Parameters[0].EvaluateAsync();
 

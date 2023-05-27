@@ -1,20 +1,22 @@
-﻿using PanoramicData.NCalcAsyncExtensions.Exceptions;
+﻿using NCalcAsync;
+using PanoramicData.NCalcAsyncExtensions.Exceptions;
 using PanoramicData.NCalcAsyncExtensions.Helpers;
+using System.Threading.Tasks;
 
 namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
 internal static class Humanize
 {
-	internal static void Evaluate(FunctionArgs functionArgs)
+	internal static async Task EvaluateAsync(FunctionArgs functionArgs)
 	{
 		double param1Double;
 		string param2;
 		try
 		{
-			if (double.TryParse(functionArgs.Parameters[0].Evaluate().ToString(), out var result))
+			if (double.TryParse((await functionArgs.Parameters[0].EvaluateAsync()).ToString(), out var result))
 			{
 				param1Double = result;
-				param2 = (string)functionArgs.Parameters[1].Evaluate();
+				param2 = (string)await functionArgs.Parameters[1].EvaluateAsync();
 			}
 			else
 			{

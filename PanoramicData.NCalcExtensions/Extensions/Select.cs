@@ -5,7 +5,7 @@ namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
 internal static class Select
 {
-	internal static void Evaluate(FunctionArgs functionArgs)
+	internal static async Task EvaluateAsync(FunctionArgs functionArgs)
 	{
 		var enumerable = functionArgs.Parameters[0].Evaluate() as IList
 			?? throw new FormatException($"First {ExtensionFunction.Select} parameter must be an IEnumerable.");

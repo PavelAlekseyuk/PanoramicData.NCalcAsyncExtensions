@@ -1,14 +1,17 @@
-﻿namespace PanoramicData.NCalcAsyncExtensions.Extensions;
+﻿using NCalcAsync;
+using System.Threading.Tasks;
+
+namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
 internal static class CanEvaluate
 {
-	internal static void Evaluate(FunctionArgs functionArgs)
+	internal static async Task EvaluateAsync(FunctionArgs functionArgs)
 	{
 		try
 		{
 			foreach (var parameter in functionArgs.Parameters)
 			{
-				parameter.Evaluate();
+				await parameter.EvaluateAsync();
 			}
 
 			functionArgs.Result = true;

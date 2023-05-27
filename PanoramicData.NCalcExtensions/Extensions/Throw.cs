@@ -1,17 +1,19 @@
-﻿using PanoramicData.NCalcAsyncExtensions.Exceptions;
+﻿using NCalcAsync;
+using PanoramicData.NCalcAsyncExtensions.Exceptions;
+using System.Threading.Tasks;
 
 namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
 internal static class Throw
 {
-	internal static Exception Evaluate(FunctionArgs functionArgs)
+	internal static async Task<Exception> EvaluateAsync(FunctionArgs functionArgs)
 	{
 		switch (functionArgs.Parameters.Length)
 		{
 			case 0:
 				return new NCalcExtensionsException();
 			case 1:
-				if (functionArgs.Parameters[0].Evaluate() is not string exceptionMessageText)
+				if (await functionArgs.Parameters[0].EvaluateAsync() is not string exceptionMessageText)
 				{
 					return new FormatException($"{ExtensionFunction.Throw} function - parameter must be a string.");
 				}

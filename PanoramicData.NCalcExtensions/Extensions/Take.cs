@@ -4,7 +4,7 @@ namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
 internal static class Take
 {
-	internal static void Evaluate(FunctionArgs functionArgs)
+	internal static async Task EvaluateAsync(FunctionArgs functionArgs)
 	{
 		var list = (IList)functionArgs.Parameters[0].Evaluate();
 		var numberToTake = (int)functionArgs.Parameters[1].Evaluate();

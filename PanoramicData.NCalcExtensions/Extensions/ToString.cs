@@ -2,7 +2,7 @@
 
 internal static class ToString
 {
-	internal static void Evaluate(FunctionArgs functionArgs)
+	internal static async Task EvaluateAsync(FunctionArgs functionArgs)
 	{
 		var parameterCount = functionArgs.Parameters.Length;
 		switch (parameterCount)

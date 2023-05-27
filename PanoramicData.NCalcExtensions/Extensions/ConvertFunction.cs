@@ -1,10 +1,12 @@
-﻿using PanoramicData.NCalcAsyncExtensions.Exceptions;
+﻿using NCalcAsync;
+using PanoramicData.NCalcAsyncExtensions.Exceptions;
+using System.Threading.Tasks;
 
 namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
 internal static class ConvertFunction
 {
-	internal static void Evaluate(FunctionArgs functionArgs)
+	internal static async Task EvaluateAsync(FunctionArgs functionArgs)
 	{
 		if (functionArgs.Parameters.Length != 2)
 		{
@@ -14,9 +16,9 @@ internal static class ConvertFunction
 		try
 		{
 			// Feed the result of the first parameter into the variables available to the second parameter
-			var param1 = functionArgs.Parameters[0].Evaluate();
+			var param1 = await functionArgs.Parameters[0].EvaluateAsync();
 			functionArgs.Parameters[1].Parameters["value"] = param1;
-			functionArgs.Result = functionArgs.Parameters[1].Evaluate();
+			functionArgs.Result = await functionArgs.Parameters[1].EvaluateAsync();
 		}
 		catch (NCalcExtensionsException)
 		{
