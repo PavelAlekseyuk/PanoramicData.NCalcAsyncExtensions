@@ -1,6 +1,6 @@
-﻿using PanoramicData.NCalcExtensions.Extensions;
+﻿using PanoramicData.NCalcAsyncExtensions.Extensions;
 
-namespace PanoramicData.NCalcExtensions.Test;
+namespace PanoramicData.NCalcAsyncExtensions.Test;
 
 public class WeekOfMonthTests : NCalcTest
 {

@@ -1,4 +1,6 @@
-﻿namespace PanoramicData.NCalcExtensions.Extensions;
+﻿using PanoramicData.NCalcAsyncExtensions.Exceptions;
+
+namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
 internal static class StartsWith
 {

@@ -1,12 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using NCalcAsync;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace PanoramicData.NCalcExtensions.Extensions;
+namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
 internal static class Count
 {
-	internal static void Evaluate(FunctionArgs functionArgs)
+	internal static async Task EvaluateAsync(FunctionArgs functionArgs)
 	{
-		var list = functionArgs.Parameters[0].Evaluate() as IEnumerable<object?>
+		var list = await functionArgs.Parameters[0].EvaluateAsync() as IEnumerable<object?>
 			?? throw new FormatException($"{ExtensionFunction.Count}() requires IEnumerable parameter.");
 
 		if (functionArgs.Parameters.Length == 1)
@@ -15,19 +17,14 @@ internal static class Count
 			return;
 		}
 
-		var predicate = functionArgs.Parameters[1].Evaluate() as string
+		var predicate = await functionArgs.Parameters[1].EvaluateAsync() as string
 			?? throw new FormatException($"Second {ExtensionFunction.Count} parameter must be a string.");
 
-		var lambdaString = functionArgs.Parameters[2].Evaluate() as string
+		var lambdaString = await functionArgs.Parameters[2].EvaluateAsync() as string
 			?? throw new FormatException($"Third {ExtensionFunction.Count} parameter must be a string.");
 
-		var lambda = new Lambda(predicate, lambdaString, new());
-
-		functionArgs.Result = list
-			.Count(value =>
-			{
-				var result = lambda.Evaluate(value) as bool?;
-				return result == true;
-			});
+		var lambda = new AsyncLambda(predicate, lambdaString, new());
+		var results = await Task.WhenAll(list.Select(value => lambda.EvaluateAsync(value)));
+		functionArgs.Result = results.Count(result => result as bool? == true);
 	}
 }

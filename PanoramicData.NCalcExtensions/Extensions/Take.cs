@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 
-namespace PanoramicData.NCalcExtensions.Extensions;
+namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
 internal static class Take
 {

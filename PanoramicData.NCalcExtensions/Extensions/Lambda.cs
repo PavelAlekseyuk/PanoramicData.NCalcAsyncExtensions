@@ -1,27 +1,21 @@
-﻿using System.Collections.Generic;
+﻿using NCalcAsync;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace PanoramicData.NCalcExtensions.Extensions;
+namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
 internal static class LambdaFunction
 {
-	internal static void Evaluate(FunctionArgs functionArgs, Dictionary<string, object?> storageDictionary)
+	internal static async Task EvaluateAsync(FunctionArgs functionArgs, Dictionary<string, object?> storageDictionary)
 	{
-		string predicate;
-		string nCalcString;
-		try
-		{
-			predicate = (string)functionArgs.Parameters[0].Evaluate();
-			nCalcString = (string)functionArgs.Parameters[1].Evaluate();
-		}
-		catch (NCalcExtensionsException)
-		{
-			throw;
-		}
-		catch (Exception)
+		if (functionArgs.Parameters.Length != 2)
 		{
 			throw new FormatException($"{ExtensionFunction.Store}() requires two parameters.");
 		}
 
-		functionArgs.Result = new Lambda(predicate, nCalcString, storageDictionary);
+		var predicate = await functionArgs.Parameters[0].EvaluateAsync() as string ?? throw new FormatException($"First {ExtensionFunction.Store} parameter must be an IEnumerable.");;
+		var nCalcString = await functionArgs.Parameters[1].EvaluateAsync() as string ?? throw new FormatException($"Second {ExtensionFunction.Store} parameter must be an IEnumerable.");;;
+
+		functionArgs.Result = new AsyncLambda(predicate, nCalcString, storageDictionary);
 	}
 }

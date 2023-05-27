@@ -1,4 +1,4 @@
-﻿namespace PanoramicData.NCalcExtensions.Exceptions;
+﻿namespace PanoramicData.NCalcAsyncExtensions.Exceptions;
 
 public class NCalcExtensionsException : Exception
 {

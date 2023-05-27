@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using PanoramicData.NCalcAsyncExtensions.Exceptions;
+using System.Collections.Generic;
 
-namespace PanoramicData.NCalcExtensions.Extensions;
+namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
 internal static class Store
 {

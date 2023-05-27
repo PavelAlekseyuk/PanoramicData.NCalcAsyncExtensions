@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace PanoramicData.NCalcExtensions.Extensions;
+namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
 internal static class Parse
 {

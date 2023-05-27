@@ -1,4 +1,4 @@
-﻿namespace PanoramicData.NCalcExtensions.Test;
+﻿namespace PanoramicData.NCalcAsyncExtensions.Test;
 
 public class CanEvaluateTests
 {

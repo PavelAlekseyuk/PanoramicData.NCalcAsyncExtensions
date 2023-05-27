@@ -1,4 +1,4 @@
-﻿namespace PanoramicData.NCalcExtensions.Helpers;
+﻿namespace PanoramicData.NCalcAsyncExtensions.Helpers;
 internal static class StringExtensions
 {
 	internal static string UpperCaseFirst(this string s)

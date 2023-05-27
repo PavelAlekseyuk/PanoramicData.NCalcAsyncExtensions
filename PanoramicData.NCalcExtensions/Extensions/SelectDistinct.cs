@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace PanoramicData.NCalcExtensions.Extensions;
+namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
 internal static class SelectDistinct
 {
@@ -15,7 +15,7 @@ internal static class SelectDistinct
 		var lambdaString = functionArgs.Parameters[2].Evaluate() as string
 			?? throw new FormatException($"Third {ExtensionFunction.SelectDistinct} parameter must be a string.");
 
-		var lambda = new Lambda(predicate, lambdaString, new());
+		var lambda = new AsyncLambda(predicate, lambdaString, new());
 
 		functionArgs.Result = enumerable
 			.Select(value =>

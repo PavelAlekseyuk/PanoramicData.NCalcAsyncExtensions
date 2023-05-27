@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace PanoramicData.NCalcExtensions.Test;
+namespace PanoramicData.NCalcAsyncExtensions.Test;
 
 public class ListTests
 {

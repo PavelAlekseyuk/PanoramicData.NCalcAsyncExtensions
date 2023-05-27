@@ -1,4 +1,4 @@
-﻿namespace PanoramicData.NCalcExtensions;
+﻿namespace PanoramicData.NCalcAsyncExtensions;
 
 public static class ExtensionFunction
 {

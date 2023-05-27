@@ -1,4 +1,6 @@
-﻿namespace PanoramicData.NCalcExtensions.Test;
+﻿using PanoramicData.NCalcAsyncExtensions.Exceptions;
+
+namespace PanoramicData.NCalcAsyncExtensions.Test;
 
 public class ThrowTests
 {

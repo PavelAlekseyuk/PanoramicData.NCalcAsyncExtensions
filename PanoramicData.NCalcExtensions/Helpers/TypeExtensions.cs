@@ -1,4 +1,4 @@
-﻿namespace PanoramicData.NCalcExtensions.Helpers;
+﻿namespace PanoramicData.NCalcAsyncExtensions.Helpers;
 internal static class TypeHelper
 {
 	internal static string AsHumanString<T>()

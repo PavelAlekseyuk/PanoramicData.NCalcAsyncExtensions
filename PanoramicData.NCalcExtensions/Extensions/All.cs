@@ -1,27 +1,24 @@
-﻿using System.Collections.Generic;
+﻿using NCalcAsync;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace PanoramicData.NCalcExtensions.Extensions;
+namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
 internal static class All
 {
-	internal static void Evaluate(FunctionArgs functionArgs)
+	internal static async Task EvaluateAsync(FunctionArgs functionArgs)
 	{
-		var list = functionArgs.Parameters[0].Evaluate() as IEnumerable<object?>
+		var list = await functionArgs.Parameters[0].EvaluateAsync() as IEnumerable<object?>
 			?? throw new FormatException($"First {ExtensionFunction.All} parameter must be an IEnumerable.");
 
-		var predicate = functionArgs.Parameters[1].Evaluate() as string
+		var predicate = await functionArgs.Parameters[1].EvaluateAsync() as string
 			?? throw new FormatException($"Second {ExtensionFunction.All} parameter must be a string.");
 
-		var lambdaString = functionArgs.Parameters[2].Evaluate() as string
+		var lambdaString = await functionArgs.Parameters[2].EvaluateAsync() as string
 			?? throw new FormatException($"Third {ExtensionFunction.All} parameter must be a string.");
 
-		var lambda = new Lambda(predicate, lambdaString, new());
-
-		functionArgs.Result = list
-			.All(value =>
-			{
-				var result = lambda.Evaluate(value) as bool?;
-				return result == true;
-			});
+		var lambda = new AsyncLambda(predicate, lambdaString, new(0));
+		var results = await Task.WhenAll(list.Select(value => lambda.EvaluateAsync(value)));
+		functionArgs.Result = results.All(result => result as bool? == true);
 	}
 }

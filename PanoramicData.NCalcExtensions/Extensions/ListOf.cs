@@ -1,7 +1,7 @@
-﻿using PanoramicData.NCalcExtensions.Helpers;
+﻿using PanoramicData.NCalcAsyncExtensions.Helpers;
 using System.Collections.Generic;
 
-namespace PanoramicData.NCalcExtensions.Extensions;
+namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
 internal static class ListOf
 {

@@ -1,6 +1,7 @@
 ﻿using Meraki.Api.Data;
+using PanoramicData.NCalcAsyncExtensions.Exceptions;
 
-namespace PanoramicData.NCalcExtensions.Test;
+namespace PanoramicData.NCalcAsyncExtensions.Test;
 public class JPathTests : NCalcTest
 {
 	private static readonly JObject TestJObject = JObject.Parse("{ \"name\": \"bob\", \"numbers\": [1, 2], \"kvps\": [ { \"key\": \"key1\", \"value\": \"value1\" }, { \"key\": \"key2\", \"value\": \"value2\" } ] }");

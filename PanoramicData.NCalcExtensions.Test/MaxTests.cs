@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 
-namespace PanoramicData.NCalcExtensions.Test;
+namespace PanoramicData.NCalcAsyncExtensions.Test;
 
 public class MaxTests
 {

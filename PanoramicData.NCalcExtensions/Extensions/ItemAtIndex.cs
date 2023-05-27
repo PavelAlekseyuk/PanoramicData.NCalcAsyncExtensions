@@ -1,6 +1,7 @@
-﻿using System.Collections;
+﻿using PanoramicData.NCalcAsyncExtensions.Exceptions;
+using System.Collections;
 
-namespace PanoramicData.NCalcExtensions.Extensions;
+namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
 internal static class ItemAtIndex
 {

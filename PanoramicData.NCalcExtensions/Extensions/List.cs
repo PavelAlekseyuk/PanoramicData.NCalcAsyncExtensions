@@ -1,4 +1,4 @@
-﻿namespace PanoramicData.NCalcExtensions.Extensions;
+﻿namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
 internal static class List
 {

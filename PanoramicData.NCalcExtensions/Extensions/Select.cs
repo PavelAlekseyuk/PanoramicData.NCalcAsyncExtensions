@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace PanoramicData.NCalcExtensions.Extensions;
+namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
 internal static class Select
 {
@@ -16,7 +16,7 @@ internal static class Select
 		var lambdaString = functionArgs.Parameters[2].Evaluate() as string
 			?? throw new FormatException($"Third {ExtensionFunction.Select} parameter must be a string.");
 
-		var lambda = new Lambda(predicate, lambdaString, new());
+		var lambda = new AsyncLambda(predicate, lambdaString, new());
 
 		var result = new List<object?>();
 		foreach (var value in enumerable)

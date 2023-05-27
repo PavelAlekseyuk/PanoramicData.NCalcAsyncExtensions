@@ -1,6 +1,7 @@
-﻿using PanoramicData.NCalcExtensions.Helpers;
+﻿using PanoramicData.NCalcAsyncExtensions.Exceptions;
+using PanoramicData.NCalcAsyncExtensions.Helpers;
 
-namespace PanoramicData.NCalcExtensions.Extensions;
+namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
 internal static class Capitalize
 {

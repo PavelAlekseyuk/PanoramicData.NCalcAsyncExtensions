@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace PanoramicData.NCalcExtensions.Extensions;
+namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
 internal static class OrderBy
 {
@@ -16,7 +16,7 @@ internal static class OrderBy
 		var lambdaString = functionArgs.Parameters[parameterIndex++].Evaluate() as string
 			?? throw new FormatException($"Third {ExtensionFunction.OrderBy} parameter must be a string.");
 
-		var lambda = new Lambda(predicate, lambdaString, new());
+		var lambda = new AsyncLambda(predicate, lambdaString, new());
 
 		IOrderedEnumerable<object?> orderable = list
 			.OrderBy(value =>
@@ -31,7 +31,7 @@ internal static class OrderBy
 		{
 			lambdaString = functionArgs.Parameters[parameterIndex++].Evaluate() as string
 				?? throw new FormatException($"{ExtensionFunction.OrderBy} parameter {parameterIndex + 1} must be a string.");
-			lambda = new Lambda(predicate, lambdaString, new());
+			lambda = new AsyncLambda(predicate, lambdaString, new());
 			orderable = orderable
 						.ThenBy(value =>
 						{

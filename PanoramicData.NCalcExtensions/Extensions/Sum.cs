@@ -1,12 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using NCalcAsync;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
-namespace PanoramicData.NCalcExtensions.Extensions;
+namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
 internal static class Sum
 {
-	internal static void Evaluate(FunctionArgs functionArgs)
+	internal static async Task Evaluate(FunctionArgs functionArgs)
 	{
-		var originalList = functionArgs.Parameters[0].Evaluate();
+		var originalList = await functionArgs.Parameters[0].EvaluateAsync();
 
 		if (functionArgs.Parameters.Length == 1)
 		{
@@ -25,23 +27,23 @@ internal static class Sum
 			return;
 		}
 
-		var predicate = functionArgs.Parameters[1].Evaluate() as string
+		var predicate = await functionArgs.Parameters[1].EvaluateAsync() as string
 			?? throw new FormatException($"Second {ExtensionFunction.Sum} parameter must be a string.");
 
-		var lambdaString = functionArgs.Parameters[2].Evaluate() as string
+		var lambdaString = await functionArgs.Parameters[2].EvaluateAsync() as string
 			?? throw new FormatException($"Third {ExtensionFunction.Sum} parameter must be a string.");
 
-		var lambda = new Lambda(predicate, lambdaString, new());
+		var lambda = new AsyncLambda(predicate, lambdaString, new());
 
 		functionArgs.Result = originalList switch
 		{
-			IEnumerable<byte> byteList => byteList.Cast<int>().Sum(value => (int?)lambda.Evaluate(value)),
-			IEnumerable<short> shortList => shortList.Cast<int>().Sum(value => (int?)lambda.Evaluate(value)),
-			IEnumerable<int> intList => intList.Sum(value => (int?)lambda.Evaluate(value)),
-			IEnumerable<long> longList => longList.Sum(value => (long?)lambda.Evaluate(value)),
-			IEnumerable<float> floatList => floatList.Sum(value => (float?)lambda.Evaluate(value)),
-			IEnumerable<double> doubleList => doubleList.Sum(value => (double?)lambda.Evaluate(value)),
-			IEnumerable<decimal> decimalList => decimalList.Sum(value => (decimal?)lambda.Evaluate(value)),
+			IEnumerable<byte> byteList => byteList.Cast<int>().Sum(value => (int?)lambda.EvaluateAsync(value).GetAwaiter().GetResult()),
+			IEnumerable<short> shortList => shortList.Cast<int>().Sum(value => (int?)lambda.EvaluateAsync(value).GetAwaiter().GetResult()),
+			IEnumerable<int> intList => intList.Sum(value => (int?)lambda.EvaluateAsync(value).GetAwaiter().GetResult()),
+			IEnumerable<long> longList => longList.Sum(value => (long?)lambda.EvaluateAsync(value).GetAwaiter().GetResult()),
+			IEnumerable<float> floatList => floatList.Sum(value => (float?)lambda.EvaluateAsync(value).GetAwaiter().GetResult()),
+			IEnumerable<double> doubleList => doubleList.Sum(value => (double?)lambda.EvaluateAsync(value).GetAwaiter().GetResult()),
+			IEnumerable<decimal> decimalList => decimalList.Sum(value => (decimal?)lambda.EvaluateAsync(value).GetAwaiter().GetResult()),
 			_ => throw new FormatException($"First {ExtensionFunction.Sum} parameter must be an IEnumerable of a numeric type.")
 		};
 	}
