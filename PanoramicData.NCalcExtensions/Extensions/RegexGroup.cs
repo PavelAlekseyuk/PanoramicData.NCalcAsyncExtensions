@@ -1,4 +1,6 @@
-﻿using PanoramicData.NCalcAsyncExtensions.Exceptions;
+﻿using NCalcAsync;
+using PanoramicData.NCalcAsyncExtensions.Exceptions;
+using System.Threading.Tasks;
 
 namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
@@ -8,10 +10,10 @@ internal static class RegexGroup
 	{
 		try
 		{
-			var input = (string)functionArgs.Parameters[0].Evaluate();
-			var regexExpression = (string)functionArgs.Parameters[1].Evaluate();
+			var input = (string)await functionArgs.Parameters[0].EvaluateAsync();
+			var regexExpression = (string)await functionArgs.Parameters[1].EvaluateAsync();
 			var regexCaptureIndex = functionArgs.Parameters.Length == 3
-				? (int)functionArgs.Parameters[2].Evaluate()
+				? (int)await functionArgs.Parameters[2].EvaluateAsync()
 				: 0;
 			var regex = new Regex(regexExpression);
 			if (!regex.IsMatch(input))

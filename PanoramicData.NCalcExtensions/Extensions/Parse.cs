@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using NCalcAsync;
+using Newtonsoft.Json;
+using System.Threading.Tasks;
 
 namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
@@ -12,9 +14,9 @@ internal static class Parse
 		}
 
 		var parameterIndex = 0;
-		var typeString = functionArgs.Parameters[parameterIndex++].Evaluate() as string
+		var typeString = await functionArgs.Parameters[parameterIndex++].EvaluateAsync() as string
 			?? throw new FormatException($"{ExtensionFunction.Parse} function - first parameter should be a string.");
-		var text = functionArgs.Parameters[parameterIndex++].Evaluate() as string
+		var text = await functionArgs.Parameters[parameterIndex++].EvaluateAsync() as string
 			?? throw new FormatException($"{ExtensionFunction.Parse} function - second parameter should be a string.");
 		try
 		{
@@ -53,7 +55,7 @@ internal static class Parse
 		{
 			if (functionArgs.Parameters.Length >= 3)
 			{
-				functionArgs.Result = functionArgs.Parameters[parameterIndex].Evaluate();
+				functionArgs.Result = await functionArgs.Parameters[parameterIndex].EvaluateAsync();
 				return;
 			}
 

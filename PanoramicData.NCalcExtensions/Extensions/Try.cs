@@ -1,4 +1,7 @@
-﻿namespace PanoramicData.NCalcAsyncExtensions.Extensions;
+﻿using NCalcAsync;
+using System.Threading.Tasks;
+
+namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
 internal static class Try
 {
@@ -8,7 +11,7 @@ internal static class Try
 
 		try
 		{
-			functionArgs.Result = functionArgs.Parameters[0].Evaluate();
+			functionArgs.Result = await functionArgs.Parameters[0].EvaluateAsync();
 		}
 		catch (Exception e)
 		{
@@ -19,7 +22,7 @@ internal static class Try
 				functionArgs.Parameters[1].Parameters["exception_typeName"] = e.GetType().Name;
 				functionArgs.Parameters[1].Parameters["exception_typeFullName"] = e.GetType().FullName;
 				functionArgs.Parameters[1].Parameters["exception_type"] = e.GetType();
-				functionArgs.Result = functionArgs.Parameters[1].Evaluate();
+				functionArgs.Result = await functionArgs.Parameters[1].EvaluateAsync();
 			}
 			else
 			{

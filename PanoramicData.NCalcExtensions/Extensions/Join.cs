@@ -1,5 +1,7 @@
-﻿using PanoramicData.NCalcAsyncExtensions.Exceptions;
+﻿using NCalcAsync;
+using PanoramicData.NCalcAsyncExtensions.Exceptions;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
@@ -11,7 +13,7 @@ internal static class Join
 		string joinString;
 		try
 		{
-			var firstParam = functionArgs.Parameters[0].Evaluate();
+			var firstParam = await functionArgs.Parameters[0].EvaluateAsync();
 			if (firstParam == null)
 			{
 				input = new List<string>();
@@ -20,12 +22,16 @@ internal static class Join
 			{
 				input = objList.Select(u => u.ToString()).ToList();
 			}
+			else if (firstParam is IEnumerable<string> strEnumerable)
+			{
+				input = strEnumerable.ToList();
+			}
 			else
 			{
-				input = (firstParam as IEnumerable<string>).ToList();
+				throw new FormatException($"{ExtensionFunction.Join}() cannot process first parameter of type {firstParam.GetType()}");
 			}
 
-			joinString = (string)functionArgs.Parameters[1].Evaluate();
+			joinString = (string)await functionArgs.Parameters[1].EvaluateAsync();
 		}
 		catch (NCalcExtensionsException)
 		{

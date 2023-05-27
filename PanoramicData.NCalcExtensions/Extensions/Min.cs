@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using NCalcAsync;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
@@ -6,7 +8,7 @@ internal static class Min
 {
 	internal static async Task EvaluateAsync(FunctionArgs functionArgs)
 	{
-		var originalList = functionArgs.Parameters[0].Evaluate();
+		var originalList = await functionArgs.Parameters[0].EvaluateAsync();
 
 		if (functionArgs.Parameters.Length == 1)
 		{
@@ -35,10 +37,10 @@ internal static class Min
 			return;
 		}
 
-		var predicate = functionArgs.Parameters[1].Evaluate() as string
+		var predicate = await functionArgs.Parameters[1].EvaluateAsync() as string
 			?? throw new FormatException($"Second {ExtensionFunction.Min} parameter must be a string.");
 
-		var lambdaString = functionArgs.Parameters[2].Evaluate() as string
+		var lambdaString = await functionArgs.Parameters[2].EvaluateAsync() as string
 			?? throw new FormatException($"Third {ExtensionFunction.Min} parameter must be a string.");
 
 		var lambda = new AsyncLambda(predicate, lambdaString, new());

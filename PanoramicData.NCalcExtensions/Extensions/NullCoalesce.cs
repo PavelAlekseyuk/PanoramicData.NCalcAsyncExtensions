@@ -1,4 +1,7 @@
-﻿namespace PanoramicData.NCalcAsyncExtensions.Extensions;
+﻿using NCalcAsync;
+using System.Threading.Tasks;
+
+namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
 internal static class NullCoalesce
 {
@@ -6,7 +9,7 @@ internal static class NullCoalesce
 	{
 		foreach (var parameter in functionArgs.Parameters)
 		{
-			var result = parameter.Evaluate();
+			var result = await parameter.EvaluateAsync();
 			if (result is not null)
 			{
 				functionArgs.Result = result;

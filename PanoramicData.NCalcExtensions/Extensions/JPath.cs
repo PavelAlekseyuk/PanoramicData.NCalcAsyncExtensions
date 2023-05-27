@@ -1,4 +1,6 @@
-﻿using PanoramicData.NCalcAsyncExtensions.Exceptions;
+﻿using NCalcAsync;
+using PanoramicData.NCalcAsyncExtensions.Exceptions;
+using System.Threading.Tasks;
 
 namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
@@ -19,7 +21,7 @@ internal static class JPath
 
 		try
 		{
-			var jPathSourceObject = functionArgs.Parameters[0].Evaluate();
+			var jPathSourceObject = await functionArgs.Parameters[0].EvaluateAsync();
 
 			if (jPathSourceObject is null)
 			{
@@ -32,7 +34,7 @@ internal static class JPath
 				_ => JObject.FromObject(jPathSourceObject)
 			};
 
-			jPathExpression = (string)functionArgs.Parameters[1].Evaluate();
+			jPathExpression = (string)await functionArgs.Parameters[1].EvaluateAsync();
 		}
 		catch (NCalcExtensionsException)
 		{
@@ -47,7 +49,7 @@ internal static class JPath
 		{
 			try
 			{
-				returnNullIfNotFound = (bool)functionArgs.Parameters[2].Evaluate();
+				returnNullIfNotFound = (bool)await functionArgs.Parameters[2].EvaluateAsync();
 			}
 			catch (Exception)
 			{

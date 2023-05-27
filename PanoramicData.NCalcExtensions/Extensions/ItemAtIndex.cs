@@ -1,5 +1,7 @@
-﻿using PanoramicData.NCalcAsyncExtensions.Exceptions;
+﻿using NCalcAsync;
+using PanoramicData.NCalcAsyncExtensions.Exceptions;
 using System.Collections;
+using System.Threading.Tasks;
 
 namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
@@ -11,8 +13,8 @@ internal static class ItemAtIndex
 		int index;
 		try
 		{
-			input = (IList)functionArgs.Parameters[0].Evaluate();
-			index = (int)functionArgs.Parameters[1].Evaluate();
+			input = (IList)await functionArgs.Parameters[0].EvaluateAsync();
+			index = (int)await functionArgs.Parameters[1].EvaluateAsync();
 			if (index < 0)
 			{
 				throw new Exception();

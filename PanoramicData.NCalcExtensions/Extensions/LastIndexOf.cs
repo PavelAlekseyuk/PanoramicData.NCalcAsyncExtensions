@@ -1,4 +1,6 @@
-﻿using PanoramicData.NCalcAsyncExtensions.Exceptions;
+﻿using NCalcAsync;
+using PanoramicData.NCalcAsyncExtensions.Exceptions;
+using System.Threading.Tasks;
 
 namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
@@ -8,8 +10,8 @@ internal static class LastIndexOf
 	{
 		try
 		{
-			var param1 = (string)functionArgs.Parameters[0].Evaluate();
-			var param2 = (string)functionArgs.Parameters[1].Evaluate();
+			var param1 = (string)await functionArgs.Parameters[0].EvaluateAsync();
+			var param2 = (string)await functionArgs.Parameters[1].EvaluateAsync();
 			functionArgs.Result = param1.LastIndexOf(param2, StringComparison.InvariantCulture);
 		}
 		catch (NCalcExtensionsException)

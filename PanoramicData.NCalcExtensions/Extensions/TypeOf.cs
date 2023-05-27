@@ -1,17 +1,20 @@
-﻿namespace PanoramicData.NCalcAsyncExtensions.Extensions;
+﻿using NCalcAsync;
+using System.Threading.Tasks;
+
+namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
 internal static class TypeOf
 {
 	internal static async Task EvaluateAsync(FunctionArgs functionArgs)
 	{
 		var parameter1 = functionArgs.Parameters.Length == 1
-			? functionArgs.Parameters[0].Evaluate()
+			? await functionArgs.Parameters[0].EvaluateAsync()
 			: throw new FormatException($"{ExtensionFunction.TypeOf} function -  requires one parameter.");
 
 		functionArgs.Result = parameter1 switch
 		{
 			null => null,
-			object @object => @object.GetType().Name
+			var @object => @object.GetType().Name
 		};
 	}
 }

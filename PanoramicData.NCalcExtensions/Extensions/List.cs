@@ -1,4 +1,7 @@
-﻿namespace PanoramicData.NCalcAsyncExtensions.Extensions;
+﻿using NCalcAsync;
+using System.Threading.Tasks;
+
+namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
 internal static class List
 {

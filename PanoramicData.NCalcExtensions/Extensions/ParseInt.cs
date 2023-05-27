@@ -1,4 +1,7 @@
-﻿namespace PanoramicData.NCalcAsyncExtensions.Extensions;
+﻿using NCalcAsync;
+using System.Threading.Tasks;
+
+namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
 internal static class ParseInt
 {
@@ -9,7 +12,7 @@ internal static class ParseInt
 			throw new FormatException($"{ExtensionFunction.ParseInt} function - requires one string parameter.");
 		}
 
-		var param1 = functionArgs.Parameters[0].Evaluate() as string
+		var param1 = await functionArgs.Parameters[0].EvaluateAsync() as string
 			?? throw new FormatException($"{ExtensionFunction.ParseInt} function - requires one string parameter.");
 		if (!int.TryParse(param1, out var result))
 		{

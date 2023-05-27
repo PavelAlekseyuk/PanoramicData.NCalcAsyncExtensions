@@ -1,4 +1,6 @@
-﻿using PanoramicData.NCalcAsyncExtensions.Exceptions;
+﻿using NCalcAsync;
+using PanoramicData.NCalcAsyncExtensions.Exceptions;
+using System.Threading.Tasks;
 
 namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
@@ -14,7 +16,7 @@ internal static class Switch
 		object valueParam;
 		try
 		{
-			valueParam = functionArgs.Parameters[0].Evaluate();
+			valueParam = await functionArgs.Parameters[0].EvaluateAsync();
 		}
 		catch (NCalcExtensionsException)
 		{
@@ -30,10 +32,10 @@ internal static class Switch
 		for (var pairIndex = 0; pairIndex < pairCount * 2; pairIndex += 2)
 		{
 			var caseIndex = 1 + pairIndex;
-			var @case = functionArgs.Parameters[caseIndex].Evaluate();
+			var @case = await functionArgs.Parameters[caseIndex].EvaluateAsync();
 			if (@case.Equals(valueParam))
 			{
-				functionArgs.Result = functionArgs.Parameters[caseIndex + 1].Evaluate();
+				functionArgs.Result = await functionArgs.Parameters[caseIndex + 1].EvaluateAsync();
 				return;
 			}
 		}
@@ -41,7 +43,7 @@ internal static class Switch
 		var defaultIsPresent = functionArgs.Parameters.Length % 2 == 0;
 		if (defaultIsPresent)
 		{
-			functionArgs.Result = functionArgs.Parameters.Last().Evaluate();
+			functionArgs.Result = await functionArgs.Parameters.Last().EvaluateAsync();
 			return;
 		}
 

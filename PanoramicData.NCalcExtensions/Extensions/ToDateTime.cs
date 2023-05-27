@@ -1,12 +1,15 @@
-﻿namespace PanoramicData.NCalcAsyncExtensions.Extensions;
+﻿using NCalcAsync;
+using System.Threading.Tasks;
+
+namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
 internal static class ToDateTime
 {
 	internal static async Task EvaluateAsync(FunctionArgs functionArgs)
 	{
-		var argument1 = functionArgs.Parameters.Length >= 1 ? functionArgs.Parameters[0]?.Evaluate() : null;
-		var argument2 = functionArgs.Parameters.Length >= 2 ? functionArgs.Parameters[1]?.Evaluate() : null;
-		var argument3 = functionArgs.Parameters.Length >= 3 ? functionArgs.Parameters[2]?.Evaluate() : null;
+		var argument1 = functionArgs.Parameters.Length >= 1 ? await functionArgs.Parameters[0].EvaluateAsync() : null;
+		var argument2 = functionArgs.Parameters.Length >= 2 ? await functionArgs.Parameters[1].EvaluateAsync() : null;
+		var argument3 = functionArgs.Parameters.Length >= 3 ? await functionArgs.Parameters[2].EvaluateAsync() : null;
 
 		functionArgs.Result = (argument1, argument2, argument3) switch
 		{

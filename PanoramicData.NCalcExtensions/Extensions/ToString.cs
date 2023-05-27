@@ -1,25 +1,29 @@
-﻿namespace PanoramicData.NCalcAsyncExtensions.Extensions;
+﻿using NCalcAsync;
+using System.Threading.Tasks;
+
+namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
 internal static class ToString
 {
 	internal static async Task EvaluateAsync(FunctionArgs functionArgs)
 	{
 		var parameterCount = functionArgs.Parameters.Length;
+		object? parameter1;
 		switch (parameterCount)
 		{
 			case 1:
-				var parameter1 = functionArgs.Parameters[0].Evaluate();
+				parameter1 = await functionArgs.Parameters[0].EvaluateAsync();
 				functionArgs.Result = parameter1 switch
 				{
 					null => null,
-					object @object => @object.ToString()
+					var @object => @object.ToString()
 				};
 				break;
 			case 2:
-				var parameter1a = functionArgs.Parameters[0].Evaluate();
-				var parameter2 = functionArgs.Parameters[1].Evaluate() as string
+				parameter1 = await functionArgs.Parameters[0].EvaluateAsync();
+				var parameter2 = await functionArgs.Parameters[1].EvaluateAsync() as string
 					?? throw new FormatException($"{ExtensionFunction.ToString} function -  requires a string as the second parameter.");
-				functionArgs.Result = parameter1a switch
+				functionArgs.Result = parameter1 switch
 				{
 					null => null,
 					byte value => value.ToString(parameter2),
@@ -33,7 +37,7 @@ internal static class ToString
 					double value => value.ToString(parameter2),
 					DateTime value => value.ToString(parameter2),
 					DateTimeOffset value => value.ToString(parameter2),
-					object @object => @object.ToString()
+					var @object => @object.ToString()
 				};
 				break;
 			default:

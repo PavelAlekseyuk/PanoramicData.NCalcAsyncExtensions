@@ -1,5 +1,7 @@
-﻿using PanoramicData.NCalcAsyncExtensions.Exceptions;
+﻿using NCalcAsync;
+using PanoramicData.NCalcAsyncExtensions.Exceptions;
 using System.Collections;
+using System.Threading.Tasks;
 
 namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
@@ -9,7 +11,7 @@ internal static class Length
 	{
 		try
 		{
-			var value = functionArgs.Parameters[0].Evaluate();
+			var value = await functionArgs.Parameters[0].EvaluateAsync();
 			functionArgs.Result = value switch
 			{
 				string a => a.Length,
