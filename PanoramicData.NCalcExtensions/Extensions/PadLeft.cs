@@ -1,5 +1,4 @@
 ﻿using PanoramicData.NCalcAsyncExtensions.Exceptions;
-using System.Threading.Tasks;
 
 namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
@@ -12,14 +11,14 @@ internal static class PadLeft
 		char paddingCharacter;
 		try
 		{
-			input = (string)await functionArgs.Parameters[0].EvaluateAsync();
-			desiredStringLength = (int)await functionArgs.Parameters[1].EvaluateAsync();
+			input = (string)await functionArgs.Parameters[0].EvaluateSafelyAsync();
+			desiredStringLength = (int)await functionArgs.Parameters[1].EvaluateSafelyAsync();
 			if (desiredStringLength < 1)
 			{
 				throw new NCalcExtensionsException($"{ExtensionFunction.PadLeft}() requires a DesiredStringLength for parameter 2 that is >= 1.");
 			}
 
-			var paddingString = await functionArgs.Parameters[2].EvaluateAsync() as string
+			var paddingString = await functionArgs.Parameters[2].EvaluateSafelyAsync() as string
 				?? throw new NCalcExtensionsException($"{ExtensionFunction.PadLeft}() requires that parameter 3 be a string."); ;
 			if (paddingString.Length != 1)
 			{

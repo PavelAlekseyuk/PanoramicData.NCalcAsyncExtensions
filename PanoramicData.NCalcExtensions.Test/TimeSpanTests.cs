@@ -16,9 +16,9 @@ public class TimeSpanTests : NCalcTest
 	[InlineData("hh", "02")]
 	[InlineData("mm", "34")]
 	[InlineData("ss", "56")]
-	public void Timespan_Succeeds(string format, object expectedValue)
+	public async Task Timespan_Succeeds(string format, object expectedValue)
 	{
-		var result = Test($"timespan('2020-01-01 00:00', '2020-03-01 02:34:56', '{format}')");
+		var result = await TestAsync($"timespan('2020-01-01 00:00', '2020-03-01 02:34:56', '{format}')");
 		result.Should().Be(expectedValue);
 	}
 }

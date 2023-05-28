@@ -1,5 +1,4 @@
 ﻿using PanoramicData.NCalcAsyncExtensions.Exceptions;
-using System.Threading.Tasks;
 
 namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
@@ -14,7 +13,7 @@ internal static class IsNullOrWhiteSpace
 
 		try
 		{
-			var outputObject = await functionArgs.Parameters[0].EvaluateAsync();
+			var outputObject = await functionArgs.Parameters[0].EvaluateSafelyAsync();
 			functionArgs.Result = outputObject is null ||
 				outputObject is JToken { Type: JTokenType.Null } ||
 				(outputObject is string outputString && string.IsNullOrWhiteSpace(outputString));

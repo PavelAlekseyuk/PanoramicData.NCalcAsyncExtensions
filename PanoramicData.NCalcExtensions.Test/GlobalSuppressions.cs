@@ -7,4 +7,4 @@
 	 "CA1303:Do not pass literals as localized parameters",
 	 Justification = "The library will not be localized",
 	 Scope = "namespaceanddescendants",
-	 Target = "~N:PanoramicData.NCalcExtensions.Test")]
+	 Target = "~N:PanoramicData.NCalcExtensions.TestAsync")]

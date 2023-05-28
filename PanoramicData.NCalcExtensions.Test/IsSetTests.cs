@@ -3,40 +3,40 @@
 public class IsSetTests
 {
 	[Fact]
-	public void IsSet_IsNotSet_ReturnsFalse()
+	public async Task IsSet_IsNotSet_ReturnsFalse()
 	{
 		var expression = new ExtendedExpression("isSet('a')");
-		Assert.False(expression.Evaluate() as bool?);
+		Assert.False(await expression.EvaluateAsync() as bool?);
 	}
 
 	[Fact]
-	public void IsSet_IsNotSetWithParameterReferenceNotSet_ReturnsTrue()
+	public async Task IsSet_IsNotSetWithParameterReferenceNotSet_ReturnsTrue()
 	{
 		var expression = new ExtendedExpression("isSet('a') && !isNull(a) && a!=''");
-		Assert.False(expression.Evaluate() as bool?);
+		Assert.False(await expression.EvaluateAsync() as bool?);
 	}
 
 	[Fact]
-	public void IsSet_IsNotSetWithParameterReferenceSet_ReturnsTrue()
+	public async Task IsSet_IsNotSetWithParameterReferenceSet_ReturnsTrue()
 	{
 		var expression = new ExtendedExpression("isSet('a.b') && !isNull([a.b]) && [a.b]!=''");
 		expression.Parameters["a.b"] = 1;
-		Assert.True(expression.Evaluate() as bool?);
+		Assert.True(await expression.EvaluateAsync() as bool?);
 	}
 
 	[Fact]
-	public void IsSet_IsSet_ReturnsTrue()
+	public async Task IsSet_IsSet_ReturnsTrue()
 	{
 		var expression = new ExtendedExpression("isSet('a')");
 		expression.Parameters["a"] = 1;
-		Assert.True(expression.Evaluate() as bool?);
+		Assert.True(await expression.EvaluateAsync() as bool?);
 	}
 
 	[Fact]
-	public void IsSet_IsSetToNull_ReturnsTrue()
+	public async Task IsSet_IsSetToNull_ReturnsTrue()
 	{
 		var expression = new ExtendedExpression("isSet('a')");
 		expression.Parameters["a"] = null;
-		Assert.True(expression.Evaluate() as bool?);
+		Assert.True(await expression.EvaluateAsync() as bool?);
 	}
 }

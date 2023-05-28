@@ -1,5 +1,4 @@
 ﻿using PanoramicData.NCalcAsyncExtensions.Exceptions;
-using System.Threading.Tasks;
 
 namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
@@ -17,9 +16,9 @@ internal static class TimeSpan
 		string timeFormat;
 		try
 		{
-			fromString = (await functionArgs.Parameters[0].EvaluateAsync()).ToString();
-			toString = (await functionArgs.Parameters[1].EvaluateAsync()).ToString();
-			timeFormat = (await functionArgs.Parameters[2].EvaluateAsync()).ToString();
+			fromString = (await functionArgs.Parameters[0].EvaluateSafelyAsync()).ToString();
+			toString = (await functionArgs.Parameters[1].EvaluateSafelyAsync()).ToString();
+			timeFormat = (await functionArgs.Parameters[2].EvaluateSafelyAsync()).ToString();
 		}
 		catch (NCalcExtensionsException)
 		{

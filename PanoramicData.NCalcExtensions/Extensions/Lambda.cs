@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
@@ -12,8 +11,8 @@ internal static class LambdaFunction
 			throw new FormatException($"{ExtensionFunction.Store}() requires two parameters.");
 		}
 
-		var predicate = await functionArgs.Parameters[0].EvaluateAsync() as string ?? throw new FormatException($"First {ExtensionFunction.Store} parameter must be an IEnumerable.");;
-		var nCalcString = await functionArgs.Parameters[1].EvaluateAsync() as string ?? throw new FormatException($"Second {ExtensionFunction.Store} parameter must be an IEnumerable.");;;
+		var predicate = await functionArgs.Parameters[0].EvaluateSafelyAsync() as string ?? throw new FormatException($"First {ExtensionFunction.Store} parameter must be an IEnumerable.");;
+		var nCalcString = await functionArgs.Parameters[1].EvaluateSafelyAsync() as string ?? throw new FormatException($"Second {ExtensionFunction.Store} parameter must be an IEnumerable.");;;
 
 		functionArgs.Result = new AsyncLambda(predicate, nCalcString, storageDictionary);
 	}

@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace PanoramicData.NCalcAsyncExtensions.Extensions;
+﻿namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
 internal static class CanEvaluate
 {
@@ -10,7 +8,7 @@ internal static class CanEvaluate
 		{
 			foreach (var parameter in functionArgs.Parameters)
 			{
-				await parameter.EvaluateAsync();
+				await parameter.EvaluateSafelyAsync();
 			}
 
 			functionArgs.Result = true;

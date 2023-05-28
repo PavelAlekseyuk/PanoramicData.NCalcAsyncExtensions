@@ -3,10 +3,10 @@
 public class JObjectTests
 {
 	[Fact]
-	public void JObject_CreatesJObject()
+	public async Task JObject_CreatesJObject()
 	{
 		var expression = new ExtendedExpression("jObject('a', 1, 'b', null)");
-		var result = expression.Evaluate() as JObject;
+		var result = await expression.EvaluateAsync() as JObject;
 		result.Should().BeOfType<JObject>();
 		result.Should().NotBeNull();
 		result.Should().HaveCount(2);

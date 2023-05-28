@@ -9,10 +9,10 @@ public class ParseTests
 	[InlineData("'int', 1")]
 	[InlineData("'xxx', '1'")]
 	[InlineData("1")]
-	public void Parse_IncorrectParameterCountOrType_Throws(string parameters)
+	public async Task Parse_IncorrectParameterCountOrType_Throws(string parameters)
 	{
 		var expression = new ExtendedExpression($"parse({parameters})");
-		Assert.Throws<FormatException>(expression.Evaluate);
+		await Assert.ThrowsAsync<FormatException>(expression.EvaluateAsync);
 	}
 
 	[Theory]
@@ -29,10 +29,10 @@ public class ParseTests
 	[InlineData("decimal")]
 	[InlineData("jObject")]
 	[InlineData("jArray")]
-	public void Parse_Unparsable_Throws(string parameters)
+	public async Task Parse_Unparsable_Throws(string parameters)
 	{
 		var expression = new ExtendedExpression($"parse('{parameters}', 'x')");
-		Assert.Throws<FormatException>(expression.Evaluate);
+		await Assert.ThrowsAsync<FormatException>(expression.EvaluateAsync);
 	}
 
 	[Theory]
@@ -40,10 +40,10 @@ public class ParseTests
 	[InlineData("True")]
 	[InlineData("false")]
 	[InlineData("False")]
-	public void Parse_Bool_Succeeds(string text)
+	public async Task Parse_Bool_Succeeds(string text)
 	{
 		var expression = new ExtendedExpression($"parse('bool', '{text}')");
-		var result = expression.Evaluate();
+		var result = await expression.EvaluateAsync();
 		result.Should().Be(bool.Parse(text));
 	}
 
@@ -52,11 +52,11 @@ public class ParseTests
 	[InlineData("Truex")]
 	[InlineData("x")]
 	[InlineData("")]
-	public void Parse_Bool_InvalidInput_Succeeds(string? text)
+	public async Task Parse_Bool_InvalidInput_Succeeds(string? text)
 	{
 		var expression = new ExtendedExpression($"parse('bool', a, null)");
 		expression.Parameters["a"] = text;
-		var result = expression.Evaluate();
+		var result = await expression.EvaluateAsync();
 		result.Should().BeNull();
 	}
 
@@ -65,10 +65,10 @@ public class ParseTests
 	[InlineData("-1")]
 	[InlineData("-0")]
 	[InlineData("0")]
-	public void Parse_Int_Succeeds(string text)
+	public async Task Parse_Int_Succeeds(string text)
 	{
 		var expression = new ExtendedExpression($"parse('int', '{text}')");
-		var result = expression.Evaluate();
+		var result = await expression.EvaluateAsync();
 		result.Should().Be(int.Parse(text));
 	}
 
@@ -77,30 +77,30 @@ public class ParseTests
 	[InlineData("-1")]
 	[InlineData("-0")]
 	[InlineData("0")]
-	public void Parse_Long_Succeeds(string text)
+	public async Task Parse_Long_Succeeds(string text)
 	{
 		var expression = new ExtendedExpression($"parse('long', '{text}')");
-		var result = expression.Evaluate();
+		var result = await expression.EvaluateAsync();
 		result.Should().Be(long.Parse(text));
 	}
 
 	[Theory]
 	[InlineData("1")]
 	[InlineData("0")]
-	public void Parse_ULong_Succeeds(string text)
+	public async Task Parse_ULong_Succeeds(string text)
 	{
 		var expression = new ExtendedExpression($"parse('ulong', '{text}')");
-		var result = expression.Evaluate();
+		var result = await expression.EvaluateAsync();
 		result.Should().Be(ulong.Parse(text));
 	}
 
 	[Theory]
 	[InlineData("1")]
 	[InlineData("0")]
-	public void Parse_UInt_Succeeds(string text)
+	public async Task Parse_UInt_Succeeds(string text)
 	{
 		var expression = new ExtendedExpression($"parse('uint', '{text}')");
-		var result = expression.Evaluate();
+		var result = await expression.EvaluateAsync();
 		result.Should().Be(uint.Parse(text));
 	}
 
@@ -109,10 +109,10 @@ public class ParseTests
 	[InlineData("-1")]
 	[InlineData("-0")]
 	[InlineData("0")]
-	public void Parse_Double_Succeeds(string text)
+	public async Task Parse_Double_Succeeds(string text)
 	{
 		var expression = new ExtendedExpression($"parse('double', '{text}')");
-		var result = expression.Evaluate();
+		var result = await expression.EvaluateAsync();
 		result.Should().Be(double.Parse(text));
 	}
 
@@ -121,10 +121,10 @@ public class ParseTests
 	[InlineData("-1")]
 	[InlineData("-0")]
 	[InlineData("0")]
-	public void Parse_Float_Succeeds(string text)
+	public async Task Parse_Float_Succeeds(string text)
 	{
 		var expression = new ExtendedExpression($"parse('float', '{text}')");
-		var result = expression.Evaluate();
+		var result = await expression.EvaluateAsync();
 		result.Should().Be(float.Parse(text));
 	}
 
@@ -133,10 +133,10 @@ public class ParseTests
 	[InlineData("-1")]
 	[InlineData("-0")]
 	[InlineData("0")]
-	public void Parse_Decimal_Succeeds(string text)
+	public async Task Parse_Decimal_Succeeds(string text)
 	{
 		var expression = new ExtendedExpression($"parse('decimal', '{text}')");
-		var result = expression.Evaluate();
+		var result = await expression.EvaluateAsync();
 		result.Should().Be(decimal.Parse(text));
 	}
 
@@ -145,20 +145,20 @@ public class ParseTests
 	[InlineData("-1")]
 	[InlineData("-0")]
 	[InlineData("0")]
-	public void Parse_SByte_Succeeds(string text)
+	public async Task Parse_SByte_Succeeds(string text)
 	{
 		var expression = new ExtendedExpression($"parse('sbyte', '{text}')");
-		var result = expression.Evaluate();
+		var result = await expression.EvaluateAsync();
 		result.Should().Be(sbyte.Parse(text));
 	}
 
 	[Theory]
 	[InlineData("1")]
 	[InlineData("0")]
-	public void Parse_Byte_Succeeds(string text)
+	public async Task Parse_Byte_Succeeds(string text)
 	{
 		var expression = new ExtendedExpression($"parse('byte', '{text}')");
-		var result = expression.Evaluate();
+		var result = await expression.EvaluateAsync();
 		result.Should().Be(byte.Parse(text));
 	}
 
@@ -167,40 +167,40 @@ public class ParseTests
 	[InlineData("-1")]
 	[InlineData("-0")]
 	[InlineData("0")]
-	public void Parse_Short_Succeeds(string text)
+	public async Task Parse_Short_Succeeds(string text)
 	{
 		var expression = new ExtendedExpression($"parse('short', '{text}')");
-		var result = expression.Evaluate();
+		var result = await expression.EvaluateAsync();
 		result.Should().Be(short.Parse(text));
 	}
 
 	[Theory]
 	[InlineData("1")]
 	[InlineData("0")]
-	public void Parse_Ushort_Succeeds(string text)
+	public async Task Parse_Ushort_Succeeds(string text)
 	{
 		var expression = new ExtendedExpression($"parse('ushort', '{text}')");
-		var result = expression.Evaluate();
+		var result = await expression.EvaluateAsync();
 		result.Should().Be(ushort.Parse(text));
 	}
 
 	[Theory]
 	[InlineData("{}")]
 	[InlineData("{\"a\":1}")]
-	public void Parse_JObject_Succeeds(string text)
+	public async Task Parse_JObject_Succeeds(string text)
 	{
 		var expression = new ExtendedExpression($"parse('jObject', '{text}')");
-		var result = expression.Evaluate();
+		var result = await expression.EvaluateAsync();
 		JsonConvert.SerializeObject(result).Should().Be(text);
 	}
 
 	[Theory]
 	[InlineData("[]")]
 	[InlineData("[\"a\",1]")]
-	public void Parse_JArray_Succeeds(string text)
+	public async Task Parse_JArray_Succeeds(string text)
 	{
 		var expression = new ExtendedExpression($"parse('jArray', '{text}')");
-		var result = expression.Evaluate();
+		var result = await expression.EvaluateAsync();
 		JsonConvert.SerializeObject(result).Should().Be(text);
 	}
 }

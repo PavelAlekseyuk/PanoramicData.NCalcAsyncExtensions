@@ -3,16 +3,16 @@
 public class CanEvaluateTests
 {
 	[Fact]
-	public void CanEvaluate_Example1_Succeeds()
+	public async Task CanEvaluate_Example1_Succeeds()
 	{
 		var expression = new ExtendedExpression("canEvaluate(nonExistent)");
-		(expression.Evaluate() as bool?).Should().BeFalse();
+		(await expression.EvaluateAsync() as bool?).Should().BeFalse();
 	}
 
 	[Fact]
-	public void CanEvaluate_Example2_Succeeds()
+	public async Task CanEvaluate_Example2_Succeeds()
 	{
 		var expression = new ExtendedExpression("canEvaluate(1)");
-		(expression.Evaluate() as bool?).Should().BeTrue();
+		(await expression.EvaluateAsync() as bool?).Should().BeTrue();
 	}
 }

@@ -1,5 +1,4 @@
 ﻿using PanoramicData.NCalcAsyncExtensions.Exceptions;
-using System.Threading.Tasks;
 
 namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
@@ -16,8 +15,8 @@ internal static class StartsWith
 
 		try
 		{
-			param1 = (string)await functionArgs.Parameters[0].EvaluateAsync();
-			param2 = (string)await functionArgs.Parameters[1].EvaluateAsync();
+			param1 = (string)await functionArgs.Parameters[0].EvaluateSafelyAsync();
+			param2 = (string)await functionArgs.Parameters[1].EvaluateSafelyAsync();
 		}
 		catch (NCalcExtensionsException)
 		{

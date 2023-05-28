@@ -1,5 +1,4 @@
 ﻿using PanoramicData.NCalcAsyncExtensions.Exceptions;
-using System.Threading.Tasks;
 
 namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
@@ -9,7 +8,7 @@ internal static class ToLower
 	{
 		try
 		{
-			var param1 = (string)await functionArgs.Parameters[0].EvaluateAsync();
+			var param1 = (string)await functionArgs.Parameters[0].EvaluateSafelyAsync();
 			functionArgs.Result = param1.ToLowerInvariant();
 		}
 		catch (NCalcExtensionsException)

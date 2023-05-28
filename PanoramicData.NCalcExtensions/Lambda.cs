@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace PanoramicData.NCalcAsyncExtensions;
 
@@ -22,6 +21,6 @@ public class AsyncLambda
 		parameters.Add(predicate, value!);
 		var ncalc = new ExtendedExpression(nCalcString) { Parameters = parameters };
 
-		return await ncalc.EvaluateAsync();
+		return await ncalc.EvaluateSafelyAsync();
 	}
 }

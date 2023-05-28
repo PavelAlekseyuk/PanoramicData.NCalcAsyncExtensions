@@ -5,33 +5,33 @@ namespace PanoramicData.NCalcAsyncExtensions.Test;
 public class TakeTests
 {
 	[Fact]
-	public void List_OfInts_ReturnsExpectedType()
+	public async Task List_OfInts_ReturnsExpectedType()
 	{
 		var expression = new ExtendedExpression($"take(list(1, 2, 3), 1)");
-		expression.Evaluate().Should().BeOfType<List<object?>>();
+		(await expression.EvaluateAsync()).Should().BeOfType<List<object?>>();
 	}
 
 	[Fact]
-	public void Array_OfInts_ReturnsExpectedType()
+	public async Task Array_OfInts_ReturnsExpectedType()
 	{
 		var expression = new ExtendedExpression($"take(theArray, 1)");
 		expression.Parameters["theArray"] = new int[] { 1, 2, 3 };
-		var result = expression.Evaluate();
+		var result = await expression.EvaluateAsync();
 		result.Should().BeOfType<List<object?>>();
 		result.Should().BeEquivalentTo(new[] { 1 });
 	}
 
 	[Fact]
-	public void List_OfInts_ReturnsExpected()
+	public async Task List_OfInts_ReturnsExpected()
 	{
 		var expression = new ExtendedExpression($"take(list('a', 2, 3), 1)");
-		expression.Evaluate().Should().BeEquivalentTo(new List<object> { "a" }, options => options.WithStrictOrdering());
+		(await expression.EvaluateAsync()).Should().BeEquivalentTo(new List<object> { "a" }, options => options.WithStrictOrdering());
 	}
 
 	[Fact]
-	public void TakingTooMany_ReturnsExpected()
+	public async Task TakingTooMany_ReturnsExpected()
 	{
 		var expression = new ExtendedExpression($"take(list(1, 2, 3), 10)");
-		expression.Evaluate().Should().BeEquivalentTo(new List<object> { 1, 2, 3 }, options => options.WithStrictOrdering());
+		(await expression.EvaluateAsync()).Should().BeEquivalentTo(new List<object> { 1, 2, 3 }, options => options.WithStrictOrdering());
 	}
 }

@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace PanoramicData.NCalcAsyncExtensions.Extensions;
+﻿namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
 internal static class SetProperties
 {
@@ -13,7 +11,7 @@ internal static class SetProperties
 
 		var parameterIndex = 0;
 
-		var original = await functionArgs.Parameters[parameterIndex++].EvaluateAsync();
+		var original = await functionArgs.Parameters[parameterIndex++].EvaluateSafelyAsync();
 		var originalAsJObject = original
 			switch
 			{
@@ -24,7 +22,7 @@ internal static class SetProperties
 		// Create an empty JObject
 		while (parameterIndex < functionArgs.Parameters.Length)
 		{
-			if (await functionArgs.Parameters[parameterIndex++].EvaluateAsync() is not string key)
+			if (await functionArgs.Parameters[parameterIndex++].EvaluateSafelyAsync() is not string key)
 			{
 				throw new FormatException($"{ExtensionFunction.NewJObject}() requires a string key.");
 			}
@@ -34,7 +32,7 @@ internal static class SetProperties
 				throw new FormatException($"{ExtensionFunction.NewJObject}() can only define property {key} once.");
 			}
 
-			var value = await functionArgs.Parameters[parameterIndex++].EvaluateAsync();
+			var value = await functionArgs.Parameters[parameterIndex++].EvaluateSafelyAsync();
 			originalAsJObject.Add(key, value is null ? JValue.CreateNull() : JToken.FromObject(value));
 		}
 

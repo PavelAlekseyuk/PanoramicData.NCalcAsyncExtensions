@@ -1,6 +1,5 @@
 ﻿using PanoramicData.NCalcAsyncExtensions.Exceptions;
 using PanoramicData.NCalcAsyncExtensions.Helpers;
-using System.Threading.Tasks;
 
 namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
@@ -11,7 +10,7 @@ internal static class Capitalize
 		string param1;
 		try
 		{
-			param1 = (string)await functionArgs.Parameters[0].EvaluateAsync();
+			param1 = (string)await functionArgs.Parameters[0].EvaluateSafelyAsync();
 		}
 		catch (NCalcExtensionsException)
 		{

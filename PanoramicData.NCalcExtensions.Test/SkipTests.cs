@@ -5,34 +5,34 @@ namespace PanoramicData.NCalcAsyncExtensions.Test;
 public class SkipTests
 {
 	[Fact]
-	public void List_OfInts_ReturnsExpectedType()
+	public async Task List_OfInts_ReturnsExpectedType()
 	{
 		var expression = new ExtendedExpression($"skip(list(1, 2, 3), 1)");
-		var result = expression.Evaluate();
+		var result = await expression.EvaluateAsync();
 		result.Should().BeOfType<List<object?>>();
 	}
 
 	[Fact]
-	public void Array_OfInts_ReturnsExpectedType()
+	public async Task Array_OfInts_ReturnsExpectedType()
 	{
 		var expression = new ExtendedExpression($"skip(theArray, 1)");
 		expression.Parameters["theArray"] = new int[] { 1, 2, 3 };
-		var result = expression.Evaluate();
+		var result = await expression.EvaluateAsync();
 		result.Should().BeOfType<List<object?>>();
 		result.Should().BeEquivalentTo(new List<object> { 2, 3 }, options => options.WithStrictOrdering());
 	}
 
 	[Fact]
-	public void List_OfInts_ReturnsExpected()
+	public async Task List_OfInts_ReturnsExpected()
 	{
 		var expression = new ExtendedExpression($"skip(list(1, 2, 3), 1)");
-		expression.Evaluate().Should().BeEquivalentTo(new List<object> { 2, 3 }, options => options.WithStrictOrdering());
+		(await expression.EvaluateAsync()).Should().BeEquivalentTo(new List<object> { 2, 3 }, options => options.WithStrictOrdering());
 	}
 
 	[Fact]
-	public void SkippingTooMany_ReturnsExpected()
+	public async Task SkippingTooMany_ReturnsExpected()
 	{
 		var expression = new ExtendedExpression($"skip(list(1, 2, 3), 10)");
-		expression.Evaluate().Should().BeEquivalentTo(new List<object>(), options => options.WithStrictOrdering());
+		(await expression.EvaluateAsync()).Should().BeEquivalentTo(new List<object>(), options => options.WithStrictOrdering());
 	}
 }

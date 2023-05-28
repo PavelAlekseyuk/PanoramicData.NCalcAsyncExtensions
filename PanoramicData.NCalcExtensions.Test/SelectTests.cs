@@ -5,10 +5,9 @@ namespace PanoramicData.NCalcAsyncExtensions.Test;
 public class SelectTests : NCalcTest
 {
 	[Fact]
-	public void Select_Succeeds()
+	public async Task Select_Succeeds()
 	{
-		var result = new ExtendedExpression($"select(list(1, 2, 3, 4, 5), 'n', 'n + 1')")
-			.Evaluate();
+		var result = await new ExtendedExpression($"select(list(1, 2, 3, 4, 5), 'n', 'n + 1')").EvaluateAsync();
 
 		// The result should be 2, 3, 4, 5, 6
 		result.Should().NotBeNull();

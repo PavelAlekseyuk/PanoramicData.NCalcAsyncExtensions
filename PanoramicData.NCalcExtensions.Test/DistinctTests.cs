@@ -5,10 +5,10 @@ namespace PanoramicData.NCalcAsyncExtensions.Test;
 public class DistinctTests : NCalcTest
 {
 	[Fact]
-	public void Distinct_Succeeds()
+	public async Task Distinct_Succeeds()
 	{
-		var result = new ExtendedExpression($"distinct(list(1, 2, 3, 3, 3))")
-			.Evaluate();
+		var result = await (new ExtendedExpression($"distinct(list(1, 2, 3, 3, 3))"))
+			.EvaluateAsync();
 
 		// The result should be 1, 2, 3
 		result.Should().NotBeNull();

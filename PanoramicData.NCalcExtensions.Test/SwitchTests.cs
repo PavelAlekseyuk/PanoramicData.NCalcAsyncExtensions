@@ -6,12 +6,8 @@ public class SwitchTests : NCalcTest
 	[InlineData("switch()")]
 	[InlineData("switch(1)")]
 	[InlineData("switch(1, 2)")]
-	public void Switch_InsufficientParameters_ThrowsException(string expression)
-		=> Assert.Throws<FormatException>(() =>
-		{
-			var e = new ExtendedExpression(expression);
-			e.Evaluate();
-		});
+	public async Task Switch_InsufficientParameters_ThrowsException(string expression)
+		=> await Assert.ThrowsAsync<FormatException>(() => new ExtendedExpression(expression).EvaluateAsync());
 
 	[Theory]
 	[InlineData("switch('yes', 'yes', 1)", 1)]
@@ -22,41 +18,37 @@ public class SwitchTests : NCalcTest
 	[InlineData("switch('blah', 'yes', 1, 'no', 2, 3)", 3)]
 	[InlineData("switch('blah', 'yes', 1, 'no', 2, '3')", "3")]
 	[InlineData("switch(1, 1, 'one', 2, 'two')", "one")]
-	public void Switch_ReturnsExpected(string expression, object expectedOutput)
-		=> Assert.Equal(expectedOutput, new ExtendedExpression(expression).Evaluate());
+	public async Task Switch_ReturnsExpected(string expression, object expectedOutput)
+		=> Assert.Equal(expectedOutput, await new ExtendedExpression(expression).EvaluateAsync());
 
 	[Theory]
 	[InlineData("switch('blah', 'yes', 1, 'no', 2)")]
-	public void Switch_MissingDefault_ThrowsException(string expression)
-		=> Assert.Throws<FormatException>(() =>
-		{
-			var e = new ExtendedExpression(expression);
-			e.Evaluate();
-		});
+	public async Task Switch_MissingDefault_ThrowsException(string expression)
+		=> await Assert.ThrowsAsync<FormatException>(() => new ExtendedExpression(expression).EvaluateAsync());
 
 	[Fact]
-	public void Switch_ComparingIntegers_Works()
+	public async Task Switch_ComparingIntegers_Works()
 	{
 		const string expression = "switch(incident_Priority, 4, 4, 1, 1, 21)";
 		var e = new ExtendedExpression(expression);
 		e.Parameters["incident_Priority"] = 1;
-		var result = e.Evaluate();
+		var result = await e.EvaluateAsync();
 		result.Should().Be(1);
 	}
 
 	[Fact]
-	public void Switch_ComparingIntegersInsideIf_Works()
+	public async Task Switch_ComparingIntegersInsideIf_Works()
 	{
 		const string expression = "if(incident_exists, switch(incident_Priority, 4, 4, 1, 1, 21), 9)";
 		var e = new ExtendedExpression(expression);
 		e.Parameters["incident_exists"] = true;
 		e.Parameters["incident_Priority"] = 4;
-		var result = e.Evaluate();
+		var result = await e.EvaluateAsync();
 		result.Should().Be(4);
 	}
 
 	[Fact]
-	public void Switch_ComparingIntegersViaJObject_Works()
+	public async Task Switch_ComparingIntegersViaJObject_Works()
 	{
 		const string expression = "if(incident_exists, switch(incident_Priority, 4, 4, 1, 1, 21), 9)";
 		var e = new ExtendedExpression(expression);
@@ -71,7 +63,7 @@ public class SwitchTests : NCalcTest
 			e.Parameters[property.Name] = GetValue(property);
 		}
 
-		var result = e.Evaluate();
+		var result = await e.EvaluateAsync();
 		result.Should().Be(4);
 	}
 

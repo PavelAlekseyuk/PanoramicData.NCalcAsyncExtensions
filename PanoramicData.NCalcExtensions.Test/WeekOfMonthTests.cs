@@ -35,9 +35,9 @@ public class WeekOfMonthTests : NCalcTest
 	[InlineData("2021-11-29", 5)]
 	[InlineData("2021-11-30", 5)]
 	[InlineData("2022-02-09", 2)]
-	public void WeekOfMonthTests_Succeed(string startDateTime, int expectedWeekOfMonth)
-	=> DateTime.Parse(startDateTime)
-	.WeekOfMonth()
-	.Should()
-	.Be(expectedWeekOfMonth);
+	public void WeekOfMonthTests_Succeed(string startDateTime, int expectedWeekOfMonth) =>
+		DateTime.Parse(startDateTime)
+			.WeekOfMonth()
+			.Should()
+			.Be(expectedWeekOfMonth);
 }

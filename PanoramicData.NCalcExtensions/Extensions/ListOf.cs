@@ -1,6 +1,5 @@
 ﻿using PanoramicData.NCalcAsyncExtensions.Helpers;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
@@ -8,7 +7,7 @@ internal static class ListOf
 {
 	internal static async Task EvaluateAsync(FunctionArgs functionArgs)
 	{
-		var typeString = await functionArgs.Parameters[0].EvaluateAsync() as string
+		var typeString = await functionArgs.Parameters[0].EvaluateSafelyAsync() as string
 			?? throw new FormatException($"First {ExtensionFunction.ListOf} parameter must be a string.");
 
 		var remainingParameters = functionArgs.Parameters.Skip(1).ToArray();
@@ -78,7 +77,7 @@ internal static class ListOf
 		var list = new List<T>();
 		foreach (var parameter in remainingParameters)
 		{
-			var value = await parameter.EvaluateAsync();
+			var value = await parameter.EvaluateSafelyAsync();
 			if (typeof(T) == typeof(object))
 			{
 				list.Add((T)value);

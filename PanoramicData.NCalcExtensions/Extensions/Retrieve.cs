@@ -1,6 +1,5 @@
 ﻿using PanoramicData.NCalcAsyncExtensions.Exceptions;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
@@ -11,7 +10,7 @@ internal static class Retrieve
 		string key;
 		try
 		{
-			key = (string)await functionArgs.Parameters[0].EvaluateAsync();
+			key = (string)await functionArgs.Parameters[0].EvaluateSafelyAsync();
 		}
 		catch (NCalcExtensionsException)
 		{

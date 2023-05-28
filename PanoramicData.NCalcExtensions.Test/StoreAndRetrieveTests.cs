@@ -7,17 +7,14 @@ public class StoreAndRetrieveTests
 	[InlineData(1)]
 	[InlineData("a")]
 	[InlineData(1.0)]
-	public void Convert_Succeeds(
-		object? value
-	)
+	public async Task Convert_Succeeds(object? value)
 	{
 		var insertedString =
 			value is string ? $"'{value}'"
 			: value is null ? "null"
 			: value;
 		var expression = $"convert(store('x', {insertedString}), retrieve('x'))";
-		new ExtendedExpression(expression)
-			.Evaluate()
+		(await new ExtendedExpression(expression).EvaluateAsync())
 			.Should()
 			.Be(value);
 	}
@@ -27,11 +24,11 @@ public class StoreAndRetrieveTests
 	[InlineData("1")]
 	[InlineData("1, 1, 1")]
 	[InlineData("1, 1, 1, 1")]
-	public void Store_IncorrectParameterCount_Throws(string parameters) =>
-		new ExtendedExpression($"store({parameters})")
-		.Invoking(e => e.Evaluate())
+	public async Task Store_IncorrectParameterCount_Throws(string parameters) =>
+		await new ExtendedExpression($"store({parameters})")
+		.Invoking(e => e.EvaluateAsync())
 		.Should()
-		.Throw<FormatException>()
+		.ThrowAsync<FormatException>()
 		.WithMessage($"{ExtensionFunction.Store}() requires two parameters.");
 
 	[Theory]
@@ -39,10 +36,10 @@ public class StoreAndRetrieveTests
 	[InlineData("1, 1")]
 	[InlineData("1, 1, 1")]
 	[InlineData("1, 1, 1, 1")]
-	public void Retrieve_IncorrectParameterCount_Throws(string parameters) =>
-		new ExtendedExpression($"retrieve({parameters})")
-		.Invoking(e => e.Evaluate())
+	public async Task Retrieve_IncorrectParameterCount_Throws(string parameters) =>
+		await new ExtendedExpression($"retrieve({parameters})")
+		.Invoking(e => e.EvaluateAsync())
 		.Should()
-		.Throw<FormatException>()
+		.ThrowAsync<FormatException>()
 		.WithMessage($"{ExtensionFunction.Retrieve}() requires one string parameter.");
 }

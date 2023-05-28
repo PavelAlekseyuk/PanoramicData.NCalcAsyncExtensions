@@ -1,6 +1,5 @@
 ﻿using PanoramicData.NCalcAsyncExtensions.Exceptions;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
@@ -12,8 +11,8 @@ internal static class Store
 		object? value;
 		try
 		{
-			key = (string)await functionArgs.Parameters[0].EvaluateAsync();
-			value = await functionArgs.Parameters[1].EvaluateAsync();
+			key = (string)await functionArgs.Parameters[0].EvaluateSafelyAsync();
+			value = await functionArgs.Parameters[1].EvaluateSafelyAsync();
 		}
 		catch (NCalcExtensionsException)
 		{

@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace PanoramicData.NCalcAsyncExtensions.Extensions;
+﻿namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
 internal static class NewJObject
 {
@@ -17,7 +15,7 @@ internal static class NewJObject
 		var jObject = new JObject();
 		while (parameterIndex < functionArgs.Parameters.Length)
 		{
-			if (await functionArgs.Parameters[parameterIndex++].EvaluateAsync() is not string key)
+			if (await functionArgs.Parameters[parameterIndex++].EvaluateSafelyAsync() is not string key)
 			{
 				throw new FormatException($"{ExtensionFunction.NewJObject}() requires a string key.");
 			}
@@ -27,7 +25,7 @@ internal static class NewJObject
 				throw new FormatException($"{ExtensionFunction.NewJObject}() can only define property {key} once.");
 			}
 
-			var value = await functionArgs.Parameters[parameterIndex++].EvaluateAsync();
+			var value = await functionArgs.Parameters[parameterIndex++].EvaluateSafelyAsync();
 			jObject.Add(key, value is null ? JValue.CreateNull() : JToken.FromObject(value));
 		}
 

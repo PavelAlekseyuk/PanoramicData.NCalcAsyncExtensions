@@ -1,5 +1,4 @@
 ﻿using PanoramicData.NCalcAsyncExtensions.Exceptions;
-using System.Threading.Tasks;
 
 namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
@@ -9,8 +8,8 @@ internal static class Contains
 	{
 		try
 		{
-			var param1 = (string)await functionArgs.Parameters[0].EvaluateAsync();
-			var param2 = (string)await functionArgs.Parameters[1].EvaluateAsync();
+			var param1 = (string)await functionArgs.Parameters[0].EvaluateSafelyAsync();
+			var param2 = (string)await functionArgs.Parameters[1].EvaluateSafelyAsync();
 			functionArgs.Result = param1.IndexOf(param2, StringComparison.InvariantCulture) >= 0;
 		}
 		catch (NCalcExtensionsException)

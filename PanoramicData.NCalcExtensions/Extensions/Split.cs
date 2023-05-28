@@ -1,5 +1,4 @@
 ﻿using PanoramicData.NCalcAsyncExtensions.Exceptions;
-using System.Threading.Tasks;
 
 namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
@@ -11,8 +10,8 @@ internal static class Split
 		string splitString;
 		try
 		{
-			input = (string)await functionArgs.Parameters[0].EvaluateAsync();
-			splitString = (string)await functionArgs.Parameters[1].EvaluateAsync();
+			input = (string)await functionArgs.Parameters[0].EvaluateSafelyAsync();
+			splitString = (string)await functionArgs.Parameters[1].EvaluateSafelyAsync();
 		}
 		catch (NCalcExtensionsException)
 		{

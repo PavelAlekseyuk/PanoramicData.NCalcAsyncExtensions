@@ -1,5 +1,4 @@
 ﻿using PanoramicData.NCalcAsyncExtensions.Exceptions;
-using System.Threading.Tasks;
 
 namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
@@ -11,8 +10,8 @@ internal static class Substring
 		int startIndex;
 		try
 		{
-			input = (string)await functionArgs.Parameters[0].EvaluateAsync();
-			startIndex = (int)await functionArgs.Parameters[1].EvaluateAsync();
+			input = (string)await functionArgs.Parameters[0].EvaluateSafelyAsync();
+			startIndex = (int)await functionArgs.Parameters[1].EvaluateSafelyAsync();
 		}
 		catch (NCalcExtensionsException)
 		{
@@ -25,7 +24,7 @@ internal static class Substring
 
 		if (functionArgs.Parameters.Length > 2)
 		{
-			var length = (int)await functionArgs.Parameters[2].EvaluateAsync();
+			var length = (int)await functionArgs.Parameters[2].EvaluateSafelyAsync();
 			functionArgs.Result = input.Substring(startIndex, Math.Min(length, input.Length - startIndex));
 			return;
 		}

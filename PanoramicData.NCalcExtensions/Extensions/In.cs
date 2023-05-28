@@ -1,5 +1,4 @@
 ﻿using PanoramicData.NCalcAsyncExtensions.Exceptions;
-using System.Threading.Tasks;
 
 namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
@@ -14,9 +13,9 @@ internal static class In
 
 		try
 		{
-			var item = await functionArgs.Parameters[0].EvaluateAsync();
+			var item = await functionArgs.Parameters[0].EvaluateSafelyAsync();
 			var tasks = functionArgs.Parameters.Skip(1).Select(p => p.EvaluateAsync());
-			var list = await Task.WhenAll(tasks);
+			var list = await Task.WhenAll(tasks).ConfigureAwait(false);
 			functionArgs.Result = list.Contains(item);
 		}
 		catch (NCalcExtensionsException)

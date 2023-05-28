@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
@@ -11,7 +10,7 @@ internal static class Concat
 		var list = new List<object>();
 		foreach (var parameter in functionArgs.Parameters)
 		{
-			var parameterValue = await parameter.EvaluateAsync();
+			var parameterValue = await parameter.EvaluateSafelyAsync();
 			if (parameterValue is IList parameterValueAsIList)
 			{
 				foreach (var value in parameterValueAsIList)

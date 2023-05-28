@@ -7,15 +7,15 @@ public class ItemAtIndexTests : NCalcTest
 	[InlineData("itemAtIndex('a b c')")]
 	[InlineData("itemAtIndex('a b c', null)")]
 	[InlineData("itemAtIndex('a b c', 'xxx')")]
-	public void ItemAtIndex_InsufficientParameters_ThrowsException(string expression)
-		=> Assert.Throws<FormatException>(() =>
+	public async Task ItemAtIndex_InsufficientParameters_ThrowsException(string expression)
+		=> await Assert.ThrowsAsync<FormatException>(()=>
 		{
 			var e = new ExtendedExpression(expression);
-			e.Evaluate();
+			return e.EvaluateAsync();
 		});
 
 	[Theory]
 	[InlineData("itemAtIndex(split('a b c', ' '), 1)", "b")]
-	public void ItemAtIndex_ReturnsExpected(string expression, object? expectedOutput)
-		=> Assert.Equal(expectedOutput, new ExtendedExpression(expression).Evaluate());
+	public async Task ItemAtIndex_ReturnsExpected(string expression, object? expectedOutput)
+		=> Assert.Equal(expectedOutput, await new ExtendedExpression(expression).EvaluateAsync());
 }

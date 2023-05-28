@@ -7,9 +7,9 @@ public class TypeOfTests
 	[InlineData("Int32", "1")]
 	[InlineData("Double", "1.1")]
 	[InlineData(null, "null")]
-	public void TypeOf_ReturnsExpected(string? expected, string input)
+	public async Task TypeOf_ReturnsExpected(string? expected, string input)
 	{
 		var expression = new ExtendedExpression($"typeOf({input})");
-		Assert.Equal(expected, expression.Evaluate());
+		Assert.Equal(expected, await expression.EvaluateAsync());
 	}
 }

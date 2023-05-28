@@ -1,5 +1,4 @@
 ﻿using PanoramicData.NCalcAsyncExtensions.Exceptions;
-using System.Threading.Tasks;
 
 namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
@@ -9,9 +8,9 @@ internal static class Replace
 	{
 		try
 		{
-			var haystack = (string)await functionArgs.Parameters[0].EvaluateAsync();
-			var needle = (string)await functionArgs.Parameters[1].EvaluateAsync();
-			var newNeedle = (string)await functionArgs.Parameters[2].EvaluateAsync();
+			var haystack = (string)await functionArgs.Parameters[0].EvaluateSafelyAsync();
+			var needle = (string)await functionArgs.Parameters[1].EvaluateSafelyAsync();
+			var newNeedle = (string)await functionArgs.Parameters[2].EvaluateSafelyAsync();
 			functionArgs.Result = haystack.Replace(needle, newNeedle);
 		}
 		catch (NCalcExtensionsException)

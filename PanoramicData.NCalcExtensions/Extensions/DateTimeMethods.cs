@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace PanoramicData.NCalcAsyncExtensions.Extensions;
+﻿namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
 internal static class DateTimeMethods
 {
@@ -9,7 +7,7 @@ internal static class DateTimeMethods
 		if (functionArgs.Parameters.Length > 0)
 		{
 			// Time Zone
-			if (await functionArgs.Parameters[0].EvaluateAsync() is not string timeZone)
+			if (await functionArgs.Parameters[0].EvaluateSafelyAsync() is not string timeZone)
 			{
 				throw new FormatException($"{ExtensionFunction.DateTime} function - The first argument should be a string, e.g. 'UTC'");
 			}
@@ -23,7 +21,7 @@ internal static class DateTimeMethods
 
 		// Format
 		var format = functionArgs.Parameters.Length > 1
-			? await functionArgs.Parameters[1].EvaluateAsync() as string
+			? await functionArgs.Parameters[1].EvaluateSafelyAsync() as string
 			: "yyyy-MM-dd HH:mm:ss";
 		// Format has been determined
 
@@ -89,7 +87,7 @@ internal static class DateTimeMethods
 	}
 
 	private static async Task<double?> GetNullableDoubleAsync(Expression expression)
-		=> (await expression.EvaluateAsync()) switch
+		=> (await expression.EvaluateSafelyAsync()) switch
 		{
 			double doubleResult => doubleResult,
 			int intResult => intResult,

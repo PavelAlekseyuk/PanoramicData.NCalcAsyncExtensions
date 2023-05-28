@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace PanoramicData.NCalcAsyncExtensions.Extensions;
+﻿namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
 internal static class IsSet
 {
@@ -11,7 +9,7 @@ internal static class IsSet
 			throw new FormatException($"{ExtensionFunction.IsSet}() requires one parameter.");
 		}
 
-		functionArgs.Result = functionArgs.Parameters[0].Parameters.Keys.Any(p => p == functionArgs.Parameters[0].EvaluateAsync().GetAwaiter().GetResult() as string);
+		functionArgs.Result = functionArgs.Parameters[0].Parameters.Keys.Any(p => p == functionArgs.Parameters[0].EvaluateSafelyAsync().GetAwaiter().GetResult() as string);
 		return Task.CompletedTask;
 	}
 }

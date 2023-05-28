@@ -1,6 +1,5 @@
 ﻿using PanoramicData.NCalcAsyncExtensions.Extensions;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace PanoramicData.NCalcAsyncExtensions;
 
@@ -9,7 +8,8 @@ public class ExtendedExpression : Expression
 	private static readonly Dictionary<string, object?> _storageDictionary = new();
 	internal const string StorageDictionaryParameterName = "__storageDictionary";
 
-	public ExtendedExpression(string expression) : base(expression)
+	public ExtendedExpression(string expression) 
+		: base(expression)
 	{
 		Parameters[StorageDictionaryParameterName] = _storageDictionary;
 		EvaluateFunctionAsync += ExtendAsync;

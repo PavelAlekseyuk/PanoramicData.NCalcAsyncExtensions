@@ -4,8 +4,8 @@
 		<TargetFramework>netstandard2.0</TargetFramework>
 		<ApplicationIcon>Panoramic Data.ico</ApplicationIcon>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<Copyright>Panoramic Data Limited 2019-2023</Copyright>
-		<Authors>Panoramic Data Limited</Authors>
+		<Copyright>Panoramic Data Limited 2019-2023, Pavel Alekseyuk 2023</Copyright>
+		<Authors>Panoramic Data Limited, Pavel Alekseyuk</Authors>
 		<LangVersion>latest</LangVersion>
 		<Nullable>enable</Nullable>
 		<EnableNETAnalyzers>true</EnableNETAnalyzers>
@@ -16,7 +16,7 @@
 		<RepositoryType>git</RepositoryType>
 		<PackageIcon>Panoramic Data.png</PackageIcon>
 		<PackageTags>ncalc extensions</PackageTags>
-		<Description>Extensions for NCalc</Description>
+		<Description>Extensions for NCalcAsync</Description>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<IncludeSymbols>true</IncludeSymbols>
 
@@ -24,16 +24,13 @@
 		<EmbedAllSources>true</EmbedAllSources>
 		<DebugType>portable</DebugType>
 
-		<PackageReleaseNotes>Added listOf(), min() and max().</PackageReleaseNotes>
+		<PackageReleaseNotes>Ported PanoramicData.NCalcExtensions nuget to use NCalcAsync instead of NCalc.</PackageReleaseNotes>
 
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+	<PropertyGroup>
 	  <DebugType>embedded</DebugType>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-	  <DebugType>embedded</DebugType>
+	  <WarningsAsErrors>$(WarningsAsErrors);NU1605;CA2007</WarningsAsErrors>
 	</PropertyGroup>
 
 	<ItemGroup>

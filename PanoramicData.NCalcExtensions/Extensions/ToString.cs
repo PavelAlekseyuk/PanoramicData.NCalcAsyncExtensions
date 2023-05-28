@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace PanoramicData.NCalcAsyncExtensions.Extensions;
+﻿namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
 internal static class ToString
 {
@@ -11,7 +9,7 @@ internal static class ToString
 		switch (parameterCount)
 		{
 			case 1:
-				parameter1 = await functionArgs.Parameters[0].EvaluateAsync();
+				parameter1 = await functionArgs.Parameters[0].EvaluateSafelyAsync();
 				functionArgs.Result = parameter1 switch
 				{
 					null => null,
@@ -19,8 +17,8 @@ internal static class ToString
 				};
 				break;
 			case 2:
-				parameter1 = await functionArgs.Parameters[0].EvaluateAsync();
-				var parameter2 = await functionArgs.Parameters[1].EvaluateAsync() as string
+				parameter1 = await functionArgs.Parameters[0].EvaluateSafelyAsync();
+				var parameter2 = await functionArgs.Parameters[1].EvaluateSafelyAsync() as string
 					?? throw new FormatException($"{ExtensionFunction.ToString} function -  requires a string as the second parameter.");
 				functionArgs.Result = parameter1 switch
 				{

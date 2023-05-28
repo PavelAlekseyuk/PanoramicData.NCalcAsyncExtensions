@@ -1,5 +1,4 @@
 ﻿using PanoramicData.NCalcAsyncExtensions.Exceptions;
-using System.Threading.Tasks;
 
 namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
@@ -11,8 +10,8 @@ internal static class GetProperty
 		string property;
 		try
 		{
-			value = await functionArgs.Parameters[0].EvaluateAsync();
-			property = (string)await functionArgs.Parameters[1].EvaluateAsync();
+			value = await functionArgs.Parameters[0].EvaluateSafelyAsync();
+			property = (string)await functionArgs.Parameters[1].EvaluateSafelyAsync();
 		}
 		catch (NCalcExtensionsException)
 		{

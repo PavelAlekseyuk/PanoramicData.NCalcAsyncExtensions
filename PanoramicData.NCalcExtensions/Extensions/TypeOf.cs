@@ -1,13 +1,11 @@
-﻿using System.Threading.Tasks;
-
-namespace PanoramicData.NCalcAsyncExtensions.Extensions;
+﻿namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
 internal static class TypeOf
 {
 	internal static async Task EvaluateAsync(FunctionArgs functionArgs)
 	{
 		var parameter1 = functionArgs.Parameters.Length == 1
-			? await functionArgs.Parameters[0].EvaluateAsync()
+			? await functionArgs.Parameters[0].EvaluateSafelyAsync()
 			: throw new FormatException($"{ExtensionFunction.TypeOf} function -  requires one parameter.");
 
 		functionArgs.Result = parameter1 switch

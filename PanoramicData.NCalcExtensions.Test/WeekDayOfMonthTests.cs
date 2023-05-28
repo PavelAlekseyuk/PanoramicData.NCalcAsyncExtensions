@@ -35,10 +35,10 @@ public class WeekDayOfMonthTests : NCalcTest
 	[InlineData("2021-11-29", 5)]
 	[InlineData("2021-11-30", 5)]
 	[InlineData("2022-02-09", 2)]
-	public void WeekDayOfMonthTests_Succeed(string startDateTime, int expectedWeekOfMonth)
-	=> DateTime.Parse(startDateTime)
-	.WeekDayOfMonth()
-	.Should()
-	.Be(expectedWeekOfMonth);
+	public void WeekDayOfMonthTests_Succeed(string startDateTime, int expectedWeekOfMonth) =>
+		DateTime.Parse(startDateTime)
+			.WeekDayOfMonth()
+			.Should()
+			.Be(expectedWeekOfMonth);
 }
 

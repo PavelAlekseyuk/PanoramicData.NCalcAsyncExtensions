@@ -1,5 +1,4 @@
 ﻿using PanoramicData.NCalcAsyncExtensions.Exceptions;
-using System.Threading.Tasks;
 
 namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
@@ -10,7 +9,7 @@ internal static class ToUpper
 		string param1;
 		try
 		{
-			param1 = (string)await functionArgs.Parameters[0].EvaluateAsync();
+			param1 = (string)await functionArgs.Parameters[0].EvaluateSafelyAsync();
 			functionArgs.Result = param1.ToUpperInvariant();
 		}
 		catch (NCalcExtensionsException)

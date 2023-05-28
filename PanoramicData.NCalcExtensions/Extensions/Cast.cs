@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace PanoramicData.NCalcAsyncExtensions.Extensions;
+﻿namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
 internal static class Cast
 {
@@ -12,8 +10,8 @@ internal static class Cast
 			throw new ArgumentException($"{ExtensionFunction.Cast} function - Expected {castParameterCount} arguments");
 		}
 
-		var inputObject = await functionArgs.Parameters[0].EvaluateAsync();
-		if (await functionArgs.Parameters[1].EvaluateAsync() is not string castTypeString)
+		var inputObject = await functionArgs.Parameters[0].EvaluateSafelyAsync();
+		if (await functionArgs.Parameters[1].EvaluateSafelyAsync() is not string castTypeString)
 		{
 			throw new ArgumentException($"{ExtensionFunction.Cast} function - Expected second argument to be a string.");
 		}

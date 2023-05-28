@@ -1,6 +1,5 @@
 ﻿using PanoramicData.NCalcAsyncExtensions.Exceptions;
 using PanoramicData.NCalcAsyncExtensions.Helpers;
-using System.Threading.Tasks;
 
 namespace PanoramicData.NCalcAsyncExtensions.Extensions;
 
@@ -12,10 +11,10 @@ internal static class Humanize
 		string param2;
 		try
 		{
-			if (double.TryParse((await functionArgs.Parameters[0].EvaluateAsync()).ToString(), out var result))
+			if (double.TryParse((await functionArgs.Parameters[0].EvaluateSafelyAsync()).ToString(), out var result))
 			{
 				param1Double = result;
-				param2 = (string)await functionArgs.Parameters[1].EvaluateAsync();
+				param2 = (string)await functionArgs.Parameters[1].EvaluateSafelyAsync();
 			}
 			else
 			{
