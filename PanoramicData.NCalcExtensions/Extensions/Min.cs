@@ -1,5 +1,4 @@
-﻿using NCalcAsync;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace PanoramicData.NCalcAsyncExtensions.Extensions;
@@ -47,21 +46,21 @@ internal static class Min
 
 		functionArgs.Result = originalList switch
 		{
-			IEnumerable<byte> list => list.Cast<int>().Min(value => (int?)lambda.Evaluate(value)),
-			IEnumerable<byte?> list => list.Cast<int>().Min(value => (int?)lambda.Evaluate(value)),
-			IEnumerable<short> list => list.Cast<int>().Min(value => (int?)lambda.Evaluate(value)),
-			IEnumerable<short?> list => list.Cast<int>().Min(value => (int?)lambda.Evaluate(value)),
-			IEnumerable<int> list => list.Min(value => (int?)lambda.Evaluate(value)),
-			IEnumerable<int?> list => list.Min(value => (int?)lambda.Evaluate(value)),
-			IEnumerable<long> list => list.Min(value => (long?)lambda.Evaluate(value)),
-			IEnumerable<long?> list => list.Min(value => (long?)lambda.Evaluate(value)),
-			IEnumerable<float> list => list.Min(value => (float?)lambda.Evaluate(value)),
-			IEnumerable<float?> list => list.Min(value => (float?)lambda.Evaluate(value)),
-			IEnumerable<double> list => list.Min(value => (double?)lambda.Evaluate(value)),
-			IEnumerable<double?> list => list.Min(value => (double?)lambda.Evaluate(value)),
-			IEnumerable<decimal> list => list.Min(value => (decimal?)lambda.Evaluate(value)),
-			IEnumerable<decimal?> list => list.Min(value => (decimal?)lambda.Evaluate(value)),
-			IEnumerable<string?> list => list.Min(value => (string)lambda.Evaluate(value)),
+			IEnumerable<byte> list => list.Cast<int>().Min(value => (int?)lambda.EvaluateAsync(value).GetAwaiter().GetResult()),
+			IEnumerable<byte?> list => list.Cast<int>().Min(value => (int?)lambda.EvaluateAsync(value).GetAwaiter().GetResult()),
+			IEnumerable<short> list => list.Cast<int>().Min(value => (int?)lambda.EvaluateAsync(value).GetAwaiter().GetResult()),
+			IEnumerable<short?> list => list.Cast<int>().Min(value => (int?)lambda.EvaluateAsync(value).GetAwaiter().GetResult()),
+			IEnumerable<int> list => list.Min(value => (int?)lambda.EvaluateAsync(value).GetAwaiter().GetResult()),
+			IEnumerable<int?> list => list.Min(value => (int?)lambda.EvaluateAsync(value).GetAwaiter().GetResult()),
+			IEnumerable<long> list => list.Min(value => (long?)lambda.EvaluateAsync(value).GetAwaiter().GetResult()),
+			IEnumerable<long?> list => list.Min(value => (long?)lambda.EvaluateAsync(value).GetAwaiter().GetResult()),
+			IEnumerable<float> list => list.Min(value => (float?)lambda.EvaluateAsync(value).GetAwaiter().GetResult()),
+			IEnumerable<float?> list => list.Min(value => (float?)lambda.EvaluateAsync(value).GetAwaiter().GetResult()),
+			IEnumerable<double> list => list.Min(value => (double?)lambda.EvaluateAsync(value).GetAwaiter().GetResult()),
+			IEnumerable<double?> list => list.Min(value => (double?)lambda.EvaluateAsync(value).GetAwaiter().GetResult()),
+			IEnumerable<decimal> list => list.Min(value => (decimal?)lambda.EvaluateAsync(value).GetAwaiter().GetResult()),
+			IEnumerable<decimal?> list => list.Min(value => (decimal?)lambda.EvaluateAsync(value).GetAwaiter().GetResult()),
+			IEnumerable<string?> list => list.Min(value => (string?)lambda.EvaluateAsync(value).GetAwaiter().GetResult()),
 			_ => throw new FormatException($"First {ExtensionFunction.Min} parameter must be an IEnumerable of a numeric type.")
 		};
 	}

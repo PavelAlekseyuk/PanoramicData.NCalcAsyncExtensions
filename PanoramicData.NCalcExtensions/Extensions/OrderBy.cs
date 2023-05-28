@@ -1,5 +1,4 @@
-﻿using NCalcAsync;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace PanoramicData.NCalcAsyncExtensions.Extensions;
@@ -18,28 +17,21 @@ internal static class OrderBy
 		var lambdaString = await functionArgs.Parameters[parameterIndex++].EvaluateAsync() as string
 			?? throw new FormatException($"Third {ExtensionFunction.OrderBy} parameter must be a string.");
 
-		var lambda = new AsyncLambda(predicate, lambdaString, new());
+		var orderByLambda = new AsyncLambda(predicate, lambdaString, new());
+		var orderByResults = await Task.WhenAll(list.Select(value => orderByLambda.EvaluateAsync(value)));
+		IOrderedEnumerable<object?> orderable = orderByResults.OrderBy(value => value);
 
-		IOrderedEnumerable<object?> orderable = list
-			.OrderBy(value =>
-			{
-				var result = lambda.Evaluate(value);
-				return result;
-			});
-
-		var parameterCount = functionArgs.Parameters.Length;
-
-		while (parameterIndex < parameterCount)
+		while (parameterIndex < functionArgs.Parameters.Length)
 		{
 			lambdaString = await functionArgs.Parameters[parameterIndex++].EvaluateAsync() as string
 				?? throw new FormatException($"{ExtensionFunction.OrderBy} parameter {parameterIndex + 1} must be a string.");
-			lambda = new AsyncLambda(predicate, lambdaString, new());
-			orderable = orderable
-						.ThenBy(value =>
-						{
-							var result = lambda.Evaluate(value);
-							return result;
-						});
+			var thenBylambda = new AsyncLambda(predicate, lambdaString, new());
+			orderable = orderable.ThenBy(
+				value =>
+				{
+					var result = thenBylambda.EvaluateAsync(value).GetAwaiter().GetResult();
+					return result;
+				});
 		}
 
 		functionArgs.Result = orderable.ToList();

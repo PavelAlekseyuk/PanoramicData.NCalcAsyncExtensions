@@ -1,5 +1,4 @@
-﻿using NCalcAsync;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace PanoramicData.NCalcAsyncExtensions.Extensions;
@@ -18,15 +17,7 @@ internal static class SelectDistinct
 			?? throw new FormatException($"Third {ExtensionFunction.SelectDistinct} parameter must be a string.");
 
 		var lambda = new AsyncLambda(predicate, lambdaString, new());
-
-		functionArgs.Result = enumerable
-			.Select(value =>
-				{
-					var result = lambda.Evaluate(value);
-					return result;
-				}
-			)
-			.Distinct()
-			.ToList();
+		var results = await Task.WhenAll(enumerable.Select(value => lambda.EvaluateAsync(value)));
+		functionArgs.Result = results.Distinct().ToList();
 	}
 }

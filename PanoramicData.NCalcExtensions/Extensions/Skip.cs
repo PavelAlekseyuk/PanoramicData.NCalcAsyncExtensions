@@ -1,5 +1,4 @@
-﻿using NCalcAsync;
-using System.Collections;
+﻿using System.Collections;
 using System.Threading.Tasks;
 
 namespace PanoramicData.NCalcAsyncExtensions.Extensions;

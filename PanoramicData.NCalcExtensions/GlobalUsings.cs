@@ -1,4 +1,4 @@
-﻿global using NCalc;
+﻿global using NCalcAsync;
 global using Newtonsoft.Json.Linq;
 global using System;
 global using System.Diagnostics.CodeAnalysis;

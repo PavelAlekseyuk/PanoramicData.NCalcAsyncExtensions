@@ -1,5 +1,4 @@
-﻿using NCalcAsync;
-using PanoramicData.NCalcAsyncExtensions.Exceptions;
+﻿using PanoramicData.NCalcAsyncExtensions.Exceptions;
 using System.Collections;
 using System.Threading.Tasks;
 

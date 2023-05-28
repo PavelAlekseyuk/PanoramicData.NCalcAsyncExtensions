@@ -1,5 +1,4 @@
-﻿using NCalcAsync;
-using PanoramicData.NCalcAsyncExtensions.Helpers;
+﻿using PanoramicData.NCalcAsyncExtensions.Helpers;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -86,7 +85,7 @@ internal static class ListOf
 			}
 			else if (Nullable.GetUnderlyingType(typeof(T)) != null && value == null)
 			{
-				list.Add(default);
+				list.Add(default!);
 			}
 			else if (Nullable.GetUnderlyingType(typeof(T)) != null && value != null)
 			{

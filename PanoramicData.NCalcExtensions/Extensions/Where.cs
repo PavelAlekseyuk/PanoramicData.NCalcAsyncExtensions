@@ -1,5 +1,4 @@
-﻿using NCalcAsync;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace PanoramicData.NCalcAsyncExtensions.Extensions;
@@ -18,13 +17,7 @@ internal static class Where
 			?? throw new FormatException($"Third {ExtensionFunction.Where} parameter must be a string.");
 
 		var lambda = new AsyncLambda(predicate, lambdaString, new());
-
-		functionArgs.Result = list
-			.Where(value =>
-			{
-				var result = lambda.Evaluate(value) as bool?;
-				return result == true;
-			})
-			.ToList();
+		var results = await Task.WhenAll(list.Select(value => lambda.EvaluateAsync(value)));
+		functionArgs.Result = results.Where(result => result as bool? == true).ToList();
 	}
 }
