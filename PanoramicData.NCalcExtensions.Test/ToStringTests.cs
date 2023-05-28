@@ -20,7 +20,7 @@ public class ToStringTests
 	public async Task ToString_Int_Formatted_Succeeds()
 	{
 		var expression = new ExtendedExpression("toString(1000, 'N2')");
-		(await expression.EvaluateAsync()).Should().Be("1,000.00");
+		(await expression.EvaluateAsync()).Should().Be(1000.ToString("N2"));
 	}
 
 	[Fact]

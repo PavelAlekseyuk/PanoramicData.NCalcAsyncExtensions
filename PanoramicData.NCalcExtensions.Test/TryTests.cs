@@ -25,7 +25,7 @@ public class TryTests
 	[InlineData("throw('Woo'), exception_message", "Woo")]
 	[InlineData("throw('Woo'), exception_typeName", nameof(NCalcExtensionsException))]
 	[InlineData("throw('Woo'), exception_type", typeof(NCalcExtensionsException))]
-	[InlineData("throw('Woo'), exception_typeFullName", "PanoramicData.NCalcExtensions.Exceptions.NCalcExtensionsException")]
+	[InlineData("throw('Woo'), exception_typeFullName", "PanoramicData.NCalcAsyncExtensions.Exceptions.NCalcExtensionsException")]
 	public async Task Try_SimpleNoThrow_Succeeds(string parameters, object? expectedValue)
 	{
 		var result = await new ExtendedExpression($"try({parameters})").EvaluateAsync();

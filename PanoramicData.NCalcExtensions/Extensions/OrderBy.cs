@@ -17,8 +17,7 @@ internal static class OrderBy
 			?? throw new FormatException($"Third {ExtensionFunction.OrderBy} parameter must be a string.");
 
 		var orderByLambda = new AsyncLambda(predicate, lambdaString, new());
-		var orderByResults = await Task.WhenAll(list.Select(value => orderByLambda.EvaluateAsync(value)));
-		IOrderedEnumerable<object?> orderable = orderByResults.OrderBy(value => value);
+		IOrderedEnumerable<object?> orderable = list.OrderBy(value => orderByLambda.EvaluateAsync(value).ConfigureAwait(false).GetAwaiter().GetResult());
 
 		while (parameterIndex < functionArgs.Parameters.Length)
 		{
@@ -28,7 +27,7 @@ internal static class OrderBy
 			orderable = orderable.ThenBy(
 				value =>
 				{
-					var result = thenBylambda.EvaluateAsync(value).GetAwaiter().GetResult();
+					var result = thenBylambda.EvaluateAsync(value).ConfigureAwait(false).GetAwaiter().GetResult();
 					return result;
 				});
 		}
