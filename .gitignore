@@ -162,5 +162,5 @@ WixInstallerWeb*.wxs
 WixInstallerAgent*.wxs
 WixInstallerWp*.wxs
 
-/.vs/PanoramicData.NCalcExtensions
+/.vs/NCalcAsyncExtensions
 /.vs

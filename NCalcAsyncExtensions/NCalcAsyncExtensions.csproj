@@ -1,0 +1,57 @@
+﻿	<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<Copyright>Pavel Alekseyuk 2023, based on the intellectual property of Panoramic Data Limited 2019-2023</Copyright>
+		<Authors>Pavel Alekseyuk, based on the intellectual property of Panoramic Data Limited</Authors>
+		<LangVersion>latest</LangVersion>
+		<Nullable>enable</Nullable>
+		<EnableNETAnalyzers>true</EnableNETAnalyzers>
+		<AnalysisMode>All</AnalysisMode>
+		<PackageProjectUrl>https://github.com/PavelAlekseyuk/PanoramicData.NCalcAsyncExtensions</PackageProjectUrl>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<RepositoryUrl>https://github.com/PavelAlekseyuk/PanoramicData.NCalcAsyncExtensions</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageTags>ncalc ncalcasync extensions</PackageTags>
+		<Description>Extensions for NCalcAsync</Description>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<IncludeSymbols>true</IncludeSymbols>
+
+		<DebugSymbols>true</DebugSymbols>
+		<EmbedAllSources>true</EmbedAllSources>
+		<DebugType>portable</DebugType>
+
+		<PackageReleaseNotes>Ported PanoramicData.NCalcExtensions nuget to use NCalcAsync instead of NCalc.</PackageReleaseNotes>
+	</PropertyGroup>
+
+	<PropertyGroup>
+	  <DebugType>embedded</DebugType>
+	  <WarningsAsErrors>$(WarningsAsErrors);NU1605;CA2007</WarningsAsErrors>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Content Include="Panoramic Data.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Include="Panoramic Data.png" Pack="True" PackagePath="\" />
+		<None Include="../README.md" Pack="true" PackagePath="" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<InternalsVisibleTo Include="$(AssemblyName).Test" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="NCalcAsync" Version="4.0.4" />
+		<PackageReference Include="Nerdbank.GitVersioning" Version="3.6.133">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="System.Text.Json" Version="7.0.2" />
+		<PackageReference Include="TimeZoneConverter" Version="6.1.0" />
+
+	</ItemGroup>
+
+</Project>
